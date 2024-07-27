@@ -12,6 +12,7 @@
 		3E57045F2C555BBA003233AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E57045E2C555BBA003233AA /* Assets.xcassets */; };
 		3E5704622C555BBA003233AA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E5704612C555BBA003233AA /* Preview Assets.xcassets */; };
 		3E57046A2C555C40003233AA /* TypstLibrarySwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3E5704692C555C40003233AA /* TypstLibrarySwift */; };
+		3E57046D2C555D39003233AA /* SVGView in Frameworks */ = {isa = PBXBuildFile; productRef = 3E57046C2C555D39003233AA /* SVGView */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E57046D2C555D39003233AA /* SVGView in Frameworks */,
 				3E57046A2C555C40003233AA /* TypstLibrarySwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,6 +89,7 @@
 			name = Typstify;
 			packageProductDependencies = (
 				3E5704692C555C40003233AA /* TypstLibrarySwift */,
+				3E57046C2C555D39003233AA /* SVGView */,
 			);
 			productName = Typstify;
 			productReference = 3E5704572C555BB9003233AA /* Typstify.app */;
@@ -118,6 +121,7 @@
 			mainGroup = 3E57044E2C555BB9003233AA;
 			packageReferences = (
 				3E5704682C555C40003233AA /* XCLocalSwiftPackageReference "../typst-library-swift/TypstLibrarySwift" */,
+				3E57046B2C555D39003233AA /* XCRemoteSwiftPackageReference "SVGView" */,
 			);
 			productRefGroup = 3E5704582C555BB9003233AA /* Products */;
 			projectDirPath = "";
@@ -376,10 +380,26 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		3E57046B2C555D39003233AA /* XCRemoteSwiftPackageReference "SVGView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/SVGView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.6;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		3E5704692C555C40003233AA /* TypstLibrarySwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = TypstLibrarySwift;
+		};
+		3E57046C2C555D39003233AA /* SVGView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E57046B2C555D39003233AA /* XCRemoteSwiftPackageReference "SVGView" */;
+			productName = SVGView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

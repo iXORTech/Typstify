@@ -1,0 +1,15 @@
+{
+  "originHash" : "c291d9bb3e8456b3e30d9d75328e5a597e034adb1cf9f44992d426b391033f98",
+  "pins" : [
+    {
+      "identity" : "svgview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/exyte/SVGView.git",
+      "state" : {
+        "revision" : "6465962facdd25cb96eaebc35603afa2f15d2c0d",
+        "version" : "1.0.6"
+      }
+    }
+  ],
+  "version" : 3
+}
