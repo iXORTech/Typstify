@@ -11,6 +11,7 @@
 		3E57045D2C555BB9003233AA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57045C2C555BB9003233AA /* ContentView.swift */; };
 		3E57045F2C555BBA003233AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E57045E2C555BBA003233AA /* Assets.xcassets */; };
 		3E5704622C555BBA003233AA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E5704612C555BBA003233AA /* Preview Assets.xcassets */; };
+		3E57046A2C555C40003233AA /* TypstLibrarySwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3E5704692C555C40003233AA /* TypstLibrarySwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E57046A2C555C40003233AA /* TypstLibrarySwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +85,9 @@
 			dependencies = (
 			);
 			name = Typstify;
+			packageProductDependencies = (
+				3E5704692C555C40003233AA /* TypstLibrarySwift */,
+			);
 			productName = Typstify;
 			productReference = 3E5704572C555BB9003233AA /* Typstify.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +116,9 @@
 				Base,
 			);
 			mainGroup = 3E57044E2C555BB9003233AA;
+			packageReferences = (
+				3E5704682C555C40003233AA /* XCLocalSwiftPackageReference "../typst-library-swift/TypstLibrarySwift" */,
+			);
 			productRefGroup = 3E5704582C555BB9003233AA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -360,6 +368,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		3E5704682C555C40003233AA /* XCLocalSwiftPackageReference "../typst-library-swift/TypstLibrarySwift" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../typst-library-swift/TypstLibrarySwift";
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3E5704692C555C40003233AA /* TypstLibrarySwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TypstLibrarySwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3E57044F2C555BB9003233AA /* Project object */;
 }
