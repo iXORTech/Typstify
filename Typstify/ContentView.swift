@@ -26,6 +26,19 @@ struct ContentView: View {
     var body: some View {
         HStack {
             VStack {
+                HStack {
+                    Spacer()
+                    
+                    Toggle("Minimap", systemImage: "chart.bar.doc.horizontal", isOn: $showMinimap)
+#if os(macOS)
+                        .toggleStyle(.checkbox)
+#else
+                        .toggleStyle(.button)
+                        .labelStyle(.iconOnly)
+#endif
+                        .padding()
+                }
+                
                 CodeEditor(
                     text: $source,
                     position: $position,
