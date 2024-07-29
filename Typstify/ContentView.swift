@@ -22,6 +22,7 @@ struct ContentView: View {
     @State private var wrapText:        Bool              = true
     
     @FocusState private var editorIsFocused: Bool
+    @FocusState private var documentIsFocused: Bool
     
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
     
@@ -78,14 +79,15 @@ struct ContentView: View {
                         .environment(\.codeEditorTheme,
                                       colorScheme == .dark ? Theme.defaultDark : Theme.defaultLight)
                         .focused($editorIsFocused)
-                        .onChange(of: source, {
-                            editorIsFocused = true
-                        })
                     }
                 }
                 
                 if showPreview {
                     DocumentView(source: $source)
+                        .focused($documentIsFocused)
+                        .onChange(of: documentIsFocused, {
+                            editorIsFocused = true
+                        })
                 }
             }
             .onAppear{ editorIsFocused =  true }

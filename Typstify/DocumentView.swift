@@ -10,10 +10,24 @@ import SwiftUI
 
 import TypstLibrarySwift
 
+class NonFocusablePDFView: PDFView {
+    override func becomeFirstResponder() -> Bool {
+        return false
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+        false
+    }
+    
+    override var canBecomeFocused: Bool {
+        false
+    }
+}
+
 struct DocumentView: UIViewRepresentable {
     @Binding var source: String
     
-    func generateDocument() -> PDFDocument? {
+    func generateDocument(from source: String) -> PDFDocument? {
         do {
             let document = try TypstLibrarySwift.getRenderedDocumentPdf(source: source)
             return PDFDocument(data: document)
@@ -24,13 +38,15 @@ struct DocumentView: UIViewRepresentable {
         }
     }
     
-    func makeUIView(context: UIViewRepresentableContext<DocumentView>) -> PDFView {
-        let pdfView = PDFView()
-        pdfView.document = generateDocument()
+    func makeUIView(context: UIViewRepresentableContext<DocumentView>) -> NonFocusablePDFView {
+        let pdfView = NonFocusablePDFView()
+        pdfView.document = generateDocument(from: source)
         return pdfView
     }
-        
-    func updateUIView(_ uiView: PDFView, context: UIViewRepresentableContext<DocumentView>) {
-        uiView.document = generateDocument()
+    
+    func updateUIView(_ uiView: NonFocusablePDFView, context: UIViewRepresentableContext<DocumentView>) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            uiView.document = generateDocument(from: source)
+        }
     }
 }
