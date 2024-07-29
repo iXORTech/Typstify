@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E2AD0BF2C573332005A85AB /* PDFKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AD0BE2C57332F005A85AB /* PDFKitView.swift */; };
+		3E2AD0C12C573442005A85AB /* DocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AD0C02C57343C005A85AB /* DocumentView.swift */; };
 		3E57045B2C555BB9003233AA /* TypstifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57045A2C555BB9003233AA /* TypstifyApp.swift */; };
 		3E57045D2C555BB9003233AA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57045C2C555BB9003233AA /* ContentView.swift */; };
 		3E57045F2C555BBA003233AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E57045E2C555BBA003233AA /* Assets.xcassets */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E2AD0BE2C57332F005A85AB /* PDFKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFKitView.swift; sourceTree = "<group>"; };
+		3E2AD0C02C57343C005A85AB /* DocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentView.swift; sourceTree = "<group>"; };
 		3E5704572C555BB9003233AA /* Typstify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Typstify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E57045A2C555BB9003233AA /* TypstifyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypstifyApp.swift; sourceTree = "<group>"; };
 		3E57045C2C555BB9003233AA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -55,6 +59,8 @@
 		3E5704592C555BB9003233AA /* Typstify */ = {
 			isa = PBXGroup;
 			children = (
+				3E2AD0C02C57343C005A85AB /* DocumentView.swift */,
+				3E2AD0BE2C57332F005A85AB /* PDFKitView.swift */,
 				3E57045A2C555BB9003233AA /* TypstifyApp.swift */,
 				3E57045C2C555BB9003233AA /* ContentView.swift */,
 				3E57045E2C555BBA003233AA /* Assets.xcassets */,
@@ -147,8 +153,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E2AD0BF2C573332005A85AB /* PDFKitView.swift in Sources */,
 				3E57045D2C555BB9003233AA /* ContentView.swift in Sources */,
 				3E57045B2C555BB9003233AA /* TypstifyApp.swift in Sources */,
+				3E2AD0C12C573442005A85AB /* DocumentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

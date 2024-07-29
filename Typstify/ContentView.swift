@@ -5,27 +5,8 @@
 //  Created by Cubik65536 on 2024-07-27.
 //
 
-import PDFKit
 import SwiftUI
 import TypstLibrarySwift
-
-struct PDFKitView: UIViewRepresentable {
-    var document: Data
-    
-    mutating func updateDocument(newDocument: Data) {
-        document = newDocument
-    }
-    
-    func makeUIView(context: UIViewRepresentableContext<PDFKitView>) -> PDFView {
-        let pdfView = PDFView()
-        pdfView.document = PDFDocument(data: document)
-        return pdfView
-    }
-        
-    func updateUIView(_ uiView: PDFView, context: UIViewRepresentableContext<PDFKitView>) {
-        // TODO
-    }
-}
 
 struct ContentView: View {
     let source = """
@@ -42,11 +23,21 @@ print("Hello, world!")
 $
 B(P) = (mu_0)/(4pi) integral (I times hat(r)')/(r^('2)) d l = (mu_0)/(4pi) I integral (d l times hat(r)')/(r^('2))
 $
+
+$
+E = mc^2
+$
 """
     
     var body: some View {
-        let document = TypstLibrarySwift.getRenderedDocumentPdf(source: source)
-        PDFKitView(document: document)
+        do {
+            let document = try TypstLibrarySwift.getRenderedDocumentPdf(source: source)
+            return DocumentView(document: document)
+        } catch let error as TypstCompilationError {
+            return Text(error.message())
+        } catch {
+            return Text("An unknown error occurred.")
+        }
     }
 }
 
