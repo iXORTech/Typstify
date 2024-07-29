@@ -15,44 +15,80 @@ struct ContentView: View {
     @State private var position: CodeEditor.Position       = CodeEditor.Position()
     @State private var messages: Set<TextLocated<Message>> = Set()
     
-    @State private var theme:            ColorScheme?      = nil
-    @State private var showMinimap:      Bool              = true
-    @State private var wrapText:         Bool              = true
+    @State private var showSource:      Bool              = true
+    @State private var showPreview:     Bool              = true
+    @State private var theme:           ColorScheme?      = nil
+    @State private var showMinimap:     Bool              = true
+    @State private var wrapText:        Bool              = true
     
     @FocusState private var editorIsFocused: Bool
     
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
     
     var body: some View {
-        HStack {
-            VStack {
-                HStack {
-                    Spacer()
-                    
-                    Toggle("Minimap", systemImage: "chart.bar.doc.horizontal", isOn: $showMinimap)
+        VStack {
+            HStack {
+                Spacer()
+                
+                Toggle("Show Source", systemImage: "doc.plaintext", isOn: $showSource.animation())
 #if os(macOS)
-                        .toggleStyle(.checkbox)
+                    .toggleStyle(.checkbox)
 #else
-                        .toggleStyle(.button)
-                        .labelStyle(.iconOnly)
+                    .toggleStyle(.button)
+                    .labelStyle(.iconOnly)
 #endif
-                        .padding()
+                
+                Toggle("Show Preview", systemImage: "sidebar.squares.right", isOn: $showPreview.animation(
+                    .linear
+                ))
+#if os(macOS)
+                    .toggleStyle(.checkbox)
+#else
+                    .toggleStyle(.button)
+                    .labelStyle(.iconOnly)
+#endif
+            }
+            .padding()
+            
+            HStack {
+                if showSource {
+                    VStack {
+                        HStack {
+                            Spacer()
+                            
+                            Toggle("Minimap", systemImage: "chart.bar.doc.horizontal", isOn: $showMinimap)
+#if os(macOS)
+                                .toggleStyle(.checkbox)
+#else
+                                .toggleStyle(.button)
+                                .labelStyle(.iconOnly)
+                                .tint(Color.gray)
+                            
+                                .dynamicTypeSize(DynamicTypeSize.small)
+#endif
+                        }
+                        
+                        CodeEditor(
+                            text: $source,
+                            position: $position,
+                            messages: $messages,
+                            language: .swift(),
+                            layout: CodeEditor.LayoutConfiguration(showMinimap: showMinimap, wrapText: wrapText)
+                        )
+                        .environment(\.codeEditorTheme,
+                                      colorScheme == .dark ? Theme.defaultDark : Theme.defaultLight)
+                        .focused($editorIsFocused)
+                        .onChange(of: source, {
+                            editorIsFocused = true
+                        })
+                    }
                 }
                 
-                CodeEditor(
-                    text: $source,
-                    position: $position,
-                    messages: $messages,
-                    language: .swift(),
-                    layout: CodeEditor.LayoutConfiguration(showMinimap: showMinimap, wrapText: wrapText)
-                )
-                .environment(\.codeEditorTheme,
-                              colorScheme == .dark ? Theme.defaultDark : Theme.defaultLight)
-                .focused($editorIsFocused)
+                if showPreview {
+                    DocumentView(source: $source)
+                }
             }
             .onAppear{ editorIsFocused =  true }
-            
-            DocumentView(source: $source)
         }
     }
 }
