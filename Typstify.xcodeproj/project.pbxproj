@@ -19,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		3E2AD0CB2C574B1A005A85AB /* DocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentView.swift; sourceTree = "<group>"; };
+		3E2AD0CD2C57503A005A85AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3E5704572C555BB9003233AA /* Typstify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Typstify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E57045A2C555BB9003233AA /* TypstifyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypstifyApp.swift; sourceTree = "<group>"; };
 		3E57045C2C555BB9003233AA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -61,6 +62,7 @@
 		3E5704592C555BB9003233AA /* Typstify */ = {
 			isa = PBXGroup;
 			children = (
+				3E2AD0CD2C57503A005A85AB /* Info.plist */,
 				3E2AD0CB2C574B1A005A85AB /* DocumentView.swift */,
 				3E57045A2C555BB9003233AA /* TypstifyApp.swift */,
 				3E57045C2C555BB9003233AA /* ContentView.swift */,
@@ -296,6 +298,7 @@
 				DEVELOPMENT_TEAM = QT93JJ48BC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Typstify/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Typstify;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -333,6 +336,7 @@
 				DEVELOPMENT_TEAM = QT93JJ48BC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Typstify/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Typstify;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
