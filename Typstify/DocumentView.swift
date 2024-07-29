@@ -1,25 +1,36 @@
 //
-//  DocumentView.swift
+//  PDFKitView.swift
 //  Typstify
 //
 //  Created by Cubik65536 on 2024-07-28.
 //
 
+import PDFKit
 import SwiftUI
 
 import TypstLibrarySwift
 
-struct DocumentView: View {
-    let source: String
+struct DocumentView: UIViewRepresentable {
+    @Binding var source: String
     
-    var body: some View {
+    func generateDocument() -> PDFDocument? {
         do {
             let document = try TypstLibrarySwift.getRenderedDocumentPdf(source: source)
-            return PDFKitView(document: document)
-        } catch let error as TypstCompilationError {
-            return Text(error.message())
+            return PDFDocument(data: document)
+        } catch _ as TypstCompilationError {
+            return nil
         } catch {
-            return Text("An unknown error occurred.")
+            return nil
         }
+    }
+    
+    func makeUIView(context: UIViewRepresentableContext<DocumentView>) -> PDFView {
+        let pdfView = PDFView()
+        pdfView.document = generateDocument()
+        return pdfView
+    }
+        
+    func updateUIView(_ uiView: PDFView, context: UIViewRepresentableContext<DocumentView>) {
+        uiView.document = generateDocument()
     }
 }
