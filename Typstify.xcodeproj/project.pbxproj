@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3E2AD0BF2C573332005A85AB /* PDFKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AD0BE2C57332F005A85AB /* PDFKitView.swift */; };
 		3E2AD0C12C573442005A85AB /* DocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AD0C02C57343C005A85AB /* DocumentView.swift */; };
+		3E2AD0C42C57372F005A85AB /* CodeEditorView in Frameworks */ = {isa = PBXBuildFile; productRef = 3E2AD0C32C57372F005A85AB /* CodeEditorView */; };
+		3E2AD0C62C57372F005A85AB /* LanguageSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 3E2AD0C52C57372F005A85AB /* LanguageSupport */; };
 		3E57045B2C555BB9003233AA /* TypstifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57045A2C555BB9003233AA /* TypstifyApp.swift */; };
 		3E57045D2C555BB9003233AA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57045C2C555BB9003233AA /* ContentView.swift */; };
 		3E57045F2C555BBA003233AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E57045E2C555BBA003233AA /* Assets.xcassets */; };
@@ -33,6 +35,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E57046A2C555C40003233AA /* TypstLibrarySwift in Frameworks */,
+				3E2AD0C62C57372F005A85AB /* LanguageSupport in Frameworks */,
+				3E2AD0C42C57372F005A85AB /* CodeEditorView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +99,8 @@
 			name = Typstify;
 			packageProductDependencies = (
 				3E5704692C555C40003233AA /* TypstLibrarySwift */,
+				3E2AD0C32C57372F005A85AB /* CodeEditorView */,
+				3E2AD0C52C57372F005A85AB /* LanguageSupport */,
 			);
 			productName = Typstify;
 			productReference = 3E5704572C555BB9003233AA /* Typstify.app */;
@@ -126,6 +132,7 @@
 			mainGroup = 3E57044E2C555BB9003233AA;
 			packageReferences = (
 				3E5704682C555C40003233AA /* XCLocalSwiftPackageReference "../typst-library-swift/TypstLibrarySwift" */,
+				3E2AD0C22C57372F005A85AB /* XCRemoteSwiftPackageReference "CodeEditorView" */,
 			);
 			productRefGroup = 3E5704582C555BB9003233AA /* Products */;
 			projectDirPath = "";
@@ -386,7 +393,28 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		3E2AD0C22C57372F005A85AB /* XCRemoteSwiftPackageReference "CodeEditorView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mchakravarty/CodeEditorView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.13.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		3E2AD0C32C57372F005A85AB /* CodeEditorView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E2AD0C22C57372F005A85AB /* XCRemoteSwiftPackageReference "CodeEditorView" */;
+			productName = CodeEditorView;
+		};
+		3E2AD0C52C57372F005A85AB /* LanguageSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E2AD0C22C57372F005A85AB /* XCRemoteSwiftPackageReference "CodeEditorView" */;
+			productName = LanguageSupport;
+		};
 		3E5704692C555C40003233AA /* TypstLibrarySwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = TypstLibrarySwift;

@@ -1,0 +1,24 @@
+{
+  "originHash" : "864309ae420b119400c965208dac756336d01f2ef7eb32e007823bb1dc857c9a",
+  "pins" : [
+    {
+      "identity" : "codeeditorview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mchakravarty/CodeEditorView.git",
+      "state" : {
+        "revision" : "13ecb15e9017a025e340359dadacf471913e91b1",
+        "version" : "0.13.0"
+      }
+    },
+    {
+      "identity" : "rearrange",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ChimeHQ/Rearrange.git",
+      "state" : {
+        "revision" : "5ff7f3363f7a08f77e0d761e38e6add31c2136e1",
+        "version" : "1.8.1"
+      }
+    }
+  ],
+  "version" : 3
+}
