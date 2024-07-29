@@ -6,37 +6,23 @@
 //
 
 import SwiftUI
-import TypstLibrarySwift
+
+import CodeEditorView
+import LanguageSupport
 
 struct ContentView: View {
-    let source = """
-#show math.equation: set text(font: "STIX Two Math")
-
-= Hello, *world*!
-
-This is from `Typst`.
-
-```swift
-print("Hello, world!")
-```
-
-$
-B(P) = (mu_0)/(4pi) integral (I times hat(r)')/(r^('2)) d l = (mu_0)/(4pi) I integral (d l times hat(r)')/(r^('2))
-$
-
-$
-E = mc^2
-$
-"""
+    @State private var source:   String                    = "My awesome code..."
+    @State private var position: CodeEditor.Position       = CodeEditor.Position()
+    @State private var messages: Set<TextLocated<Message>> = Set()
+    
+    @Environment(\.colorScheme) private var colorScheme: ColorScheme
     
     var body: some View {
-        do {
-            let document = try TypstLibrarySwift.getRenderedDocumentPdf(source: source)
-            return DocumentView(document: document)
-        } catch let error as TypstCompilationError {
-            return Text(error.message())
-        } catch {
-            return Text("An unknown error occurred.")
+        HStack {
+            CodeEditor(text: $source, position: $position, messages: $messages, language: .swift())
+                .environment(\.codeEditorTheme,
+                              colorScheme == .dark ? Theme.defaultDark : Theme.defaultLight)
+            DocumentView(source: source)
         }
     }
 }

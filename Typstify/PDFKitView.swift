@@ -11,10 +11,6 @@ import SwiftUI
 struct PDFKitView: UIViewRepresentable {
     var document: Data
     
-    mutating func updateDocument(newDocument: Data) {
-        document = newDocument
-    }
-    
     func makeUIView(context: UIViewRepresentableContext<PDFKitView>) -> PDFView {
         let pdfView = PDFView()
         pdfView.document = PDFDocument(data: document)
@@ -22,6 +18,6 @@ struct PDFKitView: UIViewRepresentable {
     }
         
     func updateUIView(_ uiView: PDFView, context: UIViewRepresentableContext<PDFKitView>) {
-        // TODO
+        uiView.document = PDFDocument(data: document)
     }
 }
