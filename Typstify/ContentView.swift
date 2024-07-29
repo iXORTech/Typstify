@@ -5,15 +5,23 @@
 //  Created by Cubik65536 on 2024-07-27.
 //
 
+import PDFKit
 import SwiftUI
 
 import CodeEditorView
 import LanguageSupport
+import TypstLibrarySwift
+
+func renderTypstDocument(from source: String) throws -> PDFDocument? {
+    let document = try TypstLibrarySwift.getRenderedDocumentPdf(source: source)
+    return PDFDocument(data: document)
+}
 
 struct ContentView: View {
-    @State private var source:   String                    = ""
-    @State private var position: CodeEditor.Position       = CodeEditor.Position()
-    @State private var messages: Set<TextLocated<Message>> = Set()
+    @State private var source:          String                      = ""
+    @State private var position:        CodeEditor.Position         = CodeEditor.Position()
+    @State private var messages:        Set<TextLocated<Message>>   = Set()
+    @State private var previewDocument: PDFDocument?                = nil
     
     @State private var showSource:      Bool              = true
     @State private var showPreview:     Bool              = true
@@ -79,11 +87,19 @@ struct ContentView: View {
                         .environment(\.codeEditorTheme,
                                       colorScheme == .dark ? Theme.defaultDark : Theme.defaultLight)
                         .focused($editorIsFocused)
+                        .onChange(of: source, {
+                            do {
+                                try previewDocument = renderTypstDocument(from: source)
+                            } catch {
+                                print("Error rendering document: \(error)")
+                                previewDocument = nil
+                            }
+                        })
                     }
                 }
                 
                 if showPreview {
-                    DocumentView(source: $source)
+                    DocumentView(document: $previewDocument)
                         .focused($documentIsFocused)
                         .onChange(of: documentIsFocused, {
                             editorIsFocused = true

@@ -8,8 +8,6 @@
 import PDFKit
 import SwiftUI
 
-import TypstLibrarySwift
-
 class NonFocusablePDFView: PDFView {
     override func becomeFirstResponder() -> Bool {
         return false
@@ -25,28 +23,17 @@ class NonFocusablePDFView: PDFView {
 }
 
 struct DocumentView: UIViewRepresentable {
-    @Binding var source: String
-    
-    func generateDocument(from source: String) -> PDFDocument? {
-        do {
-            let document = try TypstLibrarySwift.getRenderedDocumentPdf(source: source)
-            return PDFDocument(data: document)
-        } catch _ as TypstCompilationError {
-            return nil
-        } catch {
-            return nil
-        }
-    }
+    @Binding var document: PDFDocument?
     
     func makeUIView(context: UIViewRepresentableContext<DocumentView>) -> NonFocusablePDFView {
         let pdfView = NonFocusablePDFView()
-        pdfView.document = generateDocument(from: source)
+        pdfView.document = document
         return pdfView
     }
     
     func updateUIView(_ uiView: NonFocusablePDFView, context: UIViewRepresentableContext<DocumentView>) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            uiView.document = generateDocument(from: source)
+            uiView.document = document
         }
     }
 }
