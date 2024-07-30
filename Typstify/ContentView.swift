@@ -58,6 +58,7 @@ struct ContentView: View {
 #endif
             }
             .padding()
+            .border(width: 3, edges: [.bottom], color: Color.gray)
             
             HStack {
                 if showSource {
