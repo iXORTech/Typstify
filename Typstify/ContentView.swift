@@ -88,10 +88,53 @@ struct ContentView: View {
                                       colorScheme == .dark ? Theme.defaultDark : Theme.defaultLight)
                         .focused($editorIsFocused)
                         .onChange(of: source, {
+                            messages.removeAll()
                             do {
                                 try previewDocument = renderTypstDocument(from: source)
+                            } catch let error as TypstCompilationError {
+                                let diagnostics = error.diagnostics()
+                                diagnostics.forEach { diagnostic in
+                                    let line = diagnostic.lineStart
+                                    let column = diagnostic.columnStart
+                                    
+                                    let category = switch diagnostic.severity {
+                                    case SourceDiagnosticResultSeverity.error:
+                                        Message.Category.error
+                                    case SourceDiagnosticResultSeverity.warning:
+                                        Message.Category.warning
+                                    }
+                                    
+                                    let length = diagnostic.columnEnd - diagnostic.columnStart
+                                    let summary = diagnostic.message
+                                    
+                                    messages.insert(
+                                        TextLocated(
+                                            location: TextLocation(oneBasedLine: Int(line), column: Int(column)),
+                                            entity: Message(
+                                                category: category,
+                                                length: Int(length),
+                                                summary: summary,
+                                                description: NSAttributedString("")
+                                            )
+                                        )
+                                    )
+                                }
+                                
+                                previewDocument = nil
                             } catch {
-                                print("Error rendering document: \(error)")
+                                messages.insert(
+                                    TextLocated(
+                                        location: TextLocation(oneBasedLine: 1, column: 1),
+                                        entity: Message(
+                                            category: Message.Category.error,
+                                            length: 1,
+                                            summary: "Unknown Error Occurred",
+                                            description: NSAttributedString(
+                                                "An unknown error prevented the compilation of the Typst Document"
+                                            )
+                                        )
+                                    )
+                                )
                                 previewDocument = nil
                             }
                         })
