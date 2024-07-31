@@ -10,8 +10,8 @@ import SwiftUI
 @main
 struct TypstifyApp: App {
     var body: some Scene {
-        WindowGroup {
-            ContentView()
+        DocumentGroup(newDocument: TypstifyDocument()) { file in
+            ContentView(document: file.$document)
         }
     }
 }

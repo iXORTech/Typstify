@@ -18,7 +18,8 @@ func renderTypstDocument(from source: String) throws -> PDFDocument? {
 }
 
 struct ContentView: View {
-    @State private var source:          String                      = ""
+    @Binding var document: TypstifyDocument
+    
     @State private var position:        CodeEditor.Position         = CodeEditor.Position()
     @State private var messages:        Set<TextLocated<Message>>   = Set()
     @State private var previewDocument: PDFDocument?                = nil
@@ -79,7 +80,7 @@ struct ContentView: View {
                         }
                         
                         CodeEditor(
-                            text: $source,
+                            text: $document.text,
                             position: $position,
                             messages: $messages,
                             language: .swift(),
@@ -88,10 +89,10 @@ struct ContentView: View {
                         .environment(\.codeEditorTheme,
                                       colorScheme == .dark ? Theme.defaultDark : Theme.defaultLight)
                         .focused($editorIsFocused)
-                        .onChange(of: source, {
+                        .onChange(of: document.text, {
                             messages.removeAll()
                             do {
-                                try previewDocument = renderTypstDocument(from: source)
+                                try previewDocument = renderTypstDocument(from: document.text)
                             } catch let error as TypstCompilationError {
                                 let diagnostics = error.diagnostics()
                                 diagnostics.forEach { diagnostic in
@@ -150,11 +151,13 @@ struct ContentView: View {
                         })
                 }
             }
-            .onAppear{ editorIsFocused =  true }
+            .onAppear{
+                editorIsFocused =  true
+            }
         }
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView(document: .constant(TypstifyDocument(text: "Hello, World from `Typst`!")))
 }
