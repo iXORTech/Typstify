@@ -39,30 +39,6 @@ struct ContentView: View {
     var body: some View {
         VStack {
             HStack {
-                Spacer()
-                
-                Toggle("Show Source", systemImage: "doc.plaintext", isOn: $showSource.animation())
-#if os(macOS)
-                    .toggleStyle(.checkbox)
-#else
-                    .toggleStyle(.button)
-                    .labelStyle(.iconOnly)
-#endif
-                
-                Toggle("Show Preview", systemImage: "sidebar.squares.right", isOn: $showPreview.animation(
-                    .linear
-                ))
-#if os(macOS)
-                    .toggleStyle(.checkbox)
-#else
-                    .toggleStyle(.button)
-                    .labelStyle(.iconOnly)
-#endif
-            }
-            .padding()
-            .border(width: 3, edges: [.bottom], color: Color.gray)
-            
-            HStack {
                 if showSource {
                     VStack {
                         HStack {
@@ -165,7 +141,29 @@ struct ContentView: View {
                 
                 editorIsFocused =  true
             }
-        }
+        }.toolbar(content: {
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                Spacer()
+                
+                Toggle("Show Source", systemImage: "text.word.spacing", isOn: $showSource.animation())
+#if os(macOS)
+                    .toggleStyle(.checkbox)
+#else
+                    .toggleStyle(.button)
+                    .labelStyle(.iconOnly)
+#endif
+                
+                Toggle("Show Preview", systemImage: "sidebar.squares.right", isOn: $showPreview.animation(
+                    .linear
+                ))
+#if os(macOS)
+                .toggleStyle(.checkbox)
+#else
+                .toggleStyle(.button)
+                .labelStyle(.iconOnly)
+#endif
+            }
+        })
     }
 }
 
