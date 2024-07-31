@@ -19,6 +19,7 @@ func renderTypstDocument(from source: String) throws -> PDFDocument? {
 
 struct ContentView: View {
     @Binding var document: TypstifyDocument
+    var directory: URL?
     
     @State private var position:        CodeEditor.Position         = CodeEditor.Position()
     @State private var messages:        Set<TextLocated<Message>>   = Set()
@@ -152,6 +153,16 @@ struct ContentView: View {
                 }
             }
             .onAppear{
+                if directory != nil {
+                    do {
+                        try TypstLibrarySwift.setWorkingDirectory(path: (
+                            directory?.path()
+                        )!)
+                    } catch {
+                        print("Failed to set working directory. Error: \(error)")
+                    }
+                }
+                
                 editorIsFocused =  true
             }
         }

@@ -11,7 +11,10 @@ import SwiftUI
 struct TypstifyApp: App {
     var body: some Scene {
         DocumentGroup(newDocument: TypstifyDocument()) { file in
-            ContentView(document: file.$document)
+            ContentView(
+                document: file.$document,
+                directory: file.fileURL?.deletingLastPathComponent()
+            )
         }
     }
 }
