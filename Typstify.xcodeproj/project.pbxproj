@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E1002602C5C206400A9E0C7 /* FileManagerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E10025F2C5C206000A9E0C7 /* FileManagerExtension.swift */; };
+		3E1002632C5C222400A9E0C7 /* PhotosPickerItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1002622C5C221D00A9E0C7 /* PhotosPickerItemExtension.swift */; };
 		3E2AD0C42C57372F005A85AB /* CodeEditorView in Frameworks */ = {isa = PBXBuildFile; productRef = 3E2AD0C32C57372F005A85AB /* CodeEditorView */; };
 		3E2AD0C62C57372F005A85AB /* LanguageSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 3E2AD0C52C57372F005A85AB /* LanguageSupport */; };
 		3E2AD0CC2C574B1A005A85AB /* DocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AD0CB2C574B1A005A85AB /* DocumentView.swift */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E10025F2C5C206000A9E0C7 /* FileManagerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerExtension.swift; sourceTree = "<group>"; };
+		3E1002622C5C221D00A9E0C7 /* PhotosPickerItemExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosPickerItemExtension.swift; sourceTree = "<group>"; };
 		3E2AD0CB2C574B1A005A85AB /* DocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentView.swift; sourceTree = "<group>"; };
 		3E2AD0CD2C57503A005A85AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3E5704572C555BB9003233AA /* Typstify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Typstify.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,7 +72,9 @@
 			children = (
 				3E57045C2C555BB9003233AA /* ContentView.swift */,
 				3E2AD0CB2C574B1A005A85AB /* DocumentView.swift */,
+				3E10025F2C5C206000A9E0C7 /* FileManagerExtension.swift */,
 				3E2AD0CD2C57503A005A85AB /* Info.plist */,
+				3E1002622C5C221D00A9E0C7 /* PhotosPickerItemExtension.swift */,
 				3E57045A2C555BB9003233AA /* TypstifyApp.swift */,
 				3EF634102C59E29500B3BF5C /* TypstifyDocument.swift */,
 				3EFE83F62C58959F006953C3 /* ViewExtension.swift */,
@@ -165,7 +171,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E1002632C5C222400A9E0C7 /* PhotosPickerItemExtension.swift in Sources */,
 				3EF634112C59E29E00B3BF5C /* TypstifyDocument.swift in Sources */,
+				3E1002602C5C206400A9E0C7 /* FileManagerExtension.swift in Sources */,
 				3E57045D2C555BB9003233AA /* ContentView.swift in Sources */,
 				3E2AD0CC2C574B1A005A85AB /* DocumentView.swift in Sources */,
 				3EFE83F72C5895A3006953C3 /* ViewExtension.swift in Sources */,
