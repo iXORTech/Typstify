@@ -11,12 +11,16 @@
 		3E1002632C5C222400A9E0C7 /* PhotosPickerItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1002622C5C221D00A9E0C7 /* PhotosPickerItemExtension.swift */; };
 		3E2AD0C42C57372F005A85AB /* CodeEditorView in Frameworks */ = {isa = PBXBuildFile; productRef = 3E2AD0C32C57372F005A85AB /* CodeEditorView */; };
 		3E2AD0C62C57372F005A85AB /* LanguageSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 3E2AD0C52C57372F005A85AB /* LanguageSupport */; };
-		3E2AD0CC2C574B1A005A85AB /* DocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AD0CB2C574B1A005A85AB /* DocumentView.swift */; };
+		3E2AD0CC2C574B1A005A85AB /* TypstifyDocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AD0CB2C574B1A005A85AB /* TypstifyDocumentView.swift */; };
 		3E57045B2C555BB9003233AA /* TypstifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57045A2C555BB9003233AA /* TypstifyApp.swift */; };
 		3E57045D2C555BB9003233AA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57045C2C555BB9003233AA /* ContentView.swift */; };
 		3E57045F2C555BBA003233AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E57045E2C555BBA003233AA /* Assets.xcassets */; };
 		3E5704622C555BBA003233AA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E5704612C555BBA003233AA /* Preview Assets.xcassets */; };
 		3E57046A2C555C40003233AA /* TypstLibrarySwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3E5704692C555C40003233AA /* TypstLibrarySwift */; };
+		3EE1AA692C606990003C913A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE1AA682C60698D003C913A /* AppDelegate.swift */; };
+		3EE1AA862C606CF6003C913A /* HLSRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE1AA812C606CF6003C913A /* HLSRuntime.m */; };
+		3EE1AA872C606CF6003C913A /* SwizzleHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE1AA852C606CF6003C913A /* SwizzleHelper.m */; };
+		3EE1AA882C606CF6003C913A /* HLSWeakObjectWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE1AA832C606CF6003C913A /* HLSWeakObjectWrapper.m */; };
 		3EF634112C59E29E00B3BF5C /* TypstifyDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF634102C59E29500B3BF5C /* TypstifyDocument.swift */; };
 		3EFE83F72C5895A3006953C3 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFE83F62C58959F006953C3 /* ViewExtension.swift */; };
 /* End PBXBuildFile section */
@@ -24,7 +28,7 @@
 /* Begin PBXFileReference section */
 		3E10025F2C5C206000A9E0C7 /* FileManagerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerExtension.swift; sourceTree = "<group>"; };
 		3E1002622C5C221D00A9E0C7 /* PhotosPickerItemExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosPickerItemExtension.swift; sourceTree = "<group>"; };
-		3E2AD0CB2C574B1A005A85AB /* DocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentView.swift; sourceTree = "<group>"; };
+		3E2AD0CB2C574B1A005A85AB /* TypstifyDocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypstifyDocumentView.swift; sourceTree = "<group>"; };
 		3E2AD0CD2C57503A005A85AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3E5704572C555BB9003233AA /* Typstify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Typstify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E57045A2C555BB9003233AA /* TypstifyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypstifyApp.swift; sourceTree = "<group>"; };
@@ -32,6 +36,14 @@
 		3E57045E2C555BBA003233AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E5704612C555BBA003233AA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3EBA29B42C55D7D000ACBAD3 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		3EE1AA682C60698D003C913A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3EE1AA802C606CF6003C913A /* HLSRuntime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLSRuntime.h; sourceTree = "<group>"; };
+		3EE1AA812C606CF6003C913A /* HLSRuntime.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLSRuntime.m; sourceTree = "<group>"; };
+		3EE1AA822C606CF6003C913A /* HLSWeakObjectWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLSWeakObjectWrapper.h; sourceTree = "<group>"; };
+		3EE1AA832C606CF6003C913A /* HLSWeakObjectWrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLSWeakObjectWrapper.m; sourceTree = "<group>"; };
+		3EE1AA842C606CF6003C913A /* SwizzleHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwizzleHelper.h; sourceTree = "<group>"; };
+		3EE1AA852C606CF6003C913A /* SwizzleHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwizzleHelper.m; sourceTree = "<group>"; };
+		3EE1AA892C606D00003C913A /* Typstify-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Typstify-Bridging-Header.h"; sourceTree = "<group>"; };
 		3EF634102C59E29500B3BF5C /* TypstifyDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypstifyDocument.swift; sourceTree = "<group>"; };
 		3EFE83F62C58959F006953C3 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -53,8 +65,15 @@
 		3E57044E2C555BB9003233AA = {
 			isa = PBXGroup;
 			children = (
-				3EBA29B42C55D7D000ACBAD3 /* LICENSE */,
+				3EE1AA802C606CF6003C913A /* HLSRuntime.h */,
+				3EE1AA812C606CF6003C913A /* HLSRuntime.m */,
+				3EE1AA822C606CF6003C913A /* HLSWeakObjectWrapper.h */,
+				3EE1AA832C606CF6003C913A /* HLSWeakObjectWrapper.m */,
+				3EE1AA842C606CF6003C913A /* SwizzleHelper.h */,
+				3EE1AA852C606CF6003C913A /* SwizzleHelper.m */,
+				3EE1AA892C606D00003C913A /* Typstify-Bridging-Header.h */,
 				3E5704592C555BB9003233AA /* Typstify */,
+				3EBA29B42C55D7D000ACBAD3 /* LICENSE */,
 				3E5704582C555BB9003233AA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -70,13 +89,14 @@
 		3E5704592C555BB9003233AA /* Typstify */ = {
 			isa = PBXGroup;
 			children = (
+				3EE1AA682C60698D003C913A /* AppDelegate.swift */,
 				3E57045C2C555BB9003233AA /* ContentView.swift */,
-				3E2AD0CB2C574B1A005A85AB /* DocumentView.swift */,
 				3E10025F2C5C206000A9E0C7 /* FileManagerExtension.swift */,
 				3E2AD0CD2C57503A005A85AB /* Info.plist */,
 				3E1002622C5C221D00A9E0C7 /* PhotosPickerItemExtension.swift */,
 				3E57045A2C555BB9003233AA /* TypstifyApp.swift */,
 				3EF634102C59E29500B3BF5C /* TypstifyDocument.swift */,
+				3E2AD0CB2C574B1A005A85AB /* TypstifyDocumentView.swift */,
 				3EFE83F62C58959F006953C3 /* ViewExtension.swift */,
 				3E57045E2C555BBA003233AA /* Assets.xcassets */,
 				3E5704602C555BBA003233AA /* Preview Content */,
@@ -171,11 +191,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EE1AA692C606990003C913A /* AppDelegate.swift in Sources */,
+				3EE1AA862C606CF6003C913A /* HLSRuntime.m in Sources */,
+				3EE1AA872C606CF6003C913A /* SwizzleHelper.m in Sources */,
+				3EE1AA882C606CF6003C913A /* HLSWeakObjectWrapper.m in Sources */,
 				3E1002632C5C222400A9E0C7 /* PhotosPickerItemExtension.swift in Sources */,
 				3EF634112C59E29E00B3BF5C /* TypstifyDocument.swift in Sources */,
 				3E1002602C5C206400A9E0C7 /* FileManagerExtension.swift in Sources */,
 				3E57045D2C555BB9003233AA /* ContentView.swift in Sources */,
-				3E2AD0CC2C574B1A005A85AB /* DocumentView.swift in Sources */,
+				3E2AD0CC2C574B1A005A85AB /* TypstifyDocumentView.swift in Sources */,
 				3EFE83F72C5895A3006953C3 /* ViewExtension.swift in Sources */,
 				3E57045B2C555BB9003233AA /* TypstifyApp.swift in Sources */,
 			);
@@ -338,6 +362,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Typstify-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -378,6 +403,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Typstify-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};

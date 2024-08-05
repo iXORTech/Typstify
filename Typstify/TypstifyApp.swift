@@ -9,6 +9,10 @@ import SwiftUI
 
 @main
 struct TypstifyApp: App {
+    // This is to prevent PDFView from stealing first responder when setting document.
+    // See SwizzleHelper.h for more information.
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     var body: some Scene {
         DocumentGroup(newDocument: TypstifyDocument()) { file in
             ContentView(

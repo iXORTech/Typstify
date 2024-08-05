@@ -5,8 +5,16 @@
 //  Created by Cubik65536 on 2024-07-30.
 //
 
+import PDFKit
 import SwiftUI
 import UniformTypeIdentifiers
+
+import TypstLibrarySwift
+
+func renderTypstDocument(from source: String) throws -> PDFDocument? {
+    let document = try TypstLibrarySwift.getRenderedDocumentPdf(source: source)
+    return PDFDocument(data: document)
+}
 
 extension UTType {
     static var typstSource: UTType {

@@ -13,11 +13,6 @@ import CodeEditorView
 import LanguageSupport
 import TypstLibrarySwift
 
-func renderTypstDocument(from source: String) throws -> PDFDocument? {
-    let document = try TypstLibrarySwift.getRenderedDocumentPdf(source: source)
-    return PDFDocument(data: document)
-}
-
 struct ContentView: View {
     @Binding var document: TypstifyDocument
     var directory: URL?
@@ -38,6 +33,58 @@ struct ContentView: View {
     @FocusState private var documentIsFocused: Bool
     
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
+    
+    func updatePreview() {
+        messages.removeAll()
+        do {
+            try previewDocument = renderTypstDocument(from: document.text)
+        } catch let error as TypstCompilationError {
+            let diagnostics = error.diagnostics()
+            diagnostics.forEach { diagnostic in
+                let line = diagnostic.lineStart
+                let column = diagnostic.columnStart
+                
+                let category = switch diagnostic.severity {
+                case SourceDiagnosticResultSeverity.error:
+                    Message.Category.error
+                case SourceDiagnosticResultSeverity.warning:
+                    Message.Category.warning
+                }
+                
+                let length = diagnostic.columnEnd - diagnostic.columnStart
+                let summary = diagnostic.message
+                
+                messages.insert(
+                    TextLocated(
+                        location: TextLocation(oneBasedLine: Int(line), column: Int(column)),
+                        entity: Message(
+                            category: category,
+                            length: Int(length),
+                            summary: summary,
+                            description: NSAttributedString("")
+                        )
+                    )
+                )
+            }
+            
+            previewDocument = nil
+        } catch {
+            messages.insert(
+                TextLocated(
+                    location: TextLocation(oneBasedLine: 1, column: 1),
+                    entity: Message(
+                        category: Message.Category.error,
+                        length: 1,
+                        summary: "Unknown Error Occurred",
+                        description: NSAttributedString(
+                            "An unknown error prevented the compilation of the Typst Document"
+                        )
+                    )
+                )
+            )
+            previewDocument = nil
+        }
+    }
     
     var body: some View {
         HStack {
@@ -69,65 +116,13 @@ struct ContentView: View {
                                   colorScheme == .dark ? Theme.defaultDark : Theme.defaultLight)
                     .focused($editorIsFocused)
                     .onChange(of: document.text, {
-                        messages.removeAll()
-                        do {
-                            try previewDocument = renderTypstDocument(from: document.text)
-                        } catch let error as TypstCompilationError {
-                            let diagnostics = error.diagnostics()
-                            diagnostics.forEach { diagnostic in
-                                let line = diagnostic.lineStart
-                                let column = diagnostic.columnStart
-                                
-                                let category = switch diagnostic.severity {
-                                case SourceDiagnosticResultSeverity.error:
-                                    Message.Category.error
-                                case SourceDiagnosticResultSeverity.warning:
-                                    Message.Category.warning
-                                }
-                                
-                                let length = diagnostic.columnEnd - diagnostic.columnStart
-                                let summary = diagnostic.message
-                                
-                                messages.insert(
-                                    TextLocated(
-                                        location: TextLocation(oneBasedLine: Int(line), column: Int(column)),
-                                        entity: Message(
-                                            category: category,
-                                            length: Int(length),
-                                            summary: summary,
-                                            description: NSAttributedString("")
-                                        )
-                                    )
-                                )
-                            }
-                            
-                            previewDocument = nil
-                        } catch {
-                            messages.insert(
-                                TextLocated(
-                                    location: TextLocation(oneBasedLine: 1, column: 1),
-                                    entity: Message(
-                                        category: Message.Category.error,
-                                        length: 1,
-                                        summary: "Unknown Error Occurred",
-                                        description: NSAttributedString(
-                                            "An unknown error prevented the compilation of the Typst Document"
-                                        )
-                                    )
-                                )
-                            )
-                            previewDocument = nil
-                        }
+                        updatePreview()
                     })
                 }
             }
             
             if showPreview {
-                DocumentView(document: $previewDocument)
-                    .focused($documentIsFocused)
-                    .onChange(of: documentIsFocused, {
-                        editorIsFocused = true
-                    })
+                TypstifyDocumentView(document: $previewDocument)
             }
         }
         .onAppear {
@@ -141,7 +136,8 @@ struct ContentView: View {
                 }
             }
             
-            editorIsFocused =  true
+            editorIsFocused = true
+            updatePreview()
         }
         .onChange(of: insertingPhotoItem) {
             Task {
