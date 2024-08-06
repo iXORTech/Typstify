@@ -29,7 +29,7 @@ struct TypstifyApp: App {
     var body: some Scene {
         DocumentGroup(newDocument: { TypstifyDocument() }) { file in
             ContentView(
-                fileURL: file.fileURL
+                projectURL: file.fileURL
             )
             .environment(navigatorDemoModel)
             .onAppear {

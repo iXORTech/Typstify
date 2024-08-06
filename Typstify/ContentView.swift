@@ -30,6 +30,8 @@ extension UUID: @retroactive RawRepresentable {
 // MARK: Views
 
 struct DocumentView: View {
+    var projectURL: URL?
+    
     @Binding var source:             String
     @Binding var showSource:         Bool
     @Binding var showPreview:        Bool
@@ -133,6 +135,28 @@ struct DocumentView: View {
         .onAppear {
             updatePreview(source: source)
         }
+        .onChange(of: insertingPhotoItem) {
+            Task {
+                insertingPhotoItem?.writeToDirectory(
+                    directory: projectURL!,
+                    completionHandler: {  result in
+                        switch result {
+                        case .success(let url):
+                            let imageName = url.lastPathComponent
+                            DispatchQueue.main.async {
+                                source.append("""
+        #figure(
+            image("\(imageName)"),
+            caption: [],
+        )
+        """)
+                            }
+                        case .failure(let failure):
+                            print(failure.localizedDescription)
+                        }
+                    })
+            }
+        }
     }
 }
 
@@ -215,6 +239,8 @@ struct FolderContextMenu: View {
 }
 
 struct Navigator: View {
+    var projectURL: URL?
+    
     @Bindable var viewState: FileNavigatorViewState
     
     @Binding var columnVisibility:    NavigationSplitViewVisibility
@@ -267,6 +293,7 @@ struct Navigator: View {
                    let $file = Binding(unwrap: model.document.texts.proxy(for: uuid).binding) {
                     if let $text = Binding($file.contents.text) {
                         DocumentView(
+                            projectURL: projectURL,
                             source: $text,
                             showSource: $showSource,
                             showPreview: $showPreview,
@@ -285,12 +312,15 @@ struct Navigator: View {
                 showDetail = true;
             }
         })
+        .onChange(of: insertingPhotoItem, {
+            
+        })
     }
 }
 
 /// This is the toplevel content view. It expects the app model as the environment object.
 struct ContentView: View {
-    var fileURL: URL?
+    var projectURL: URL?
     
     @SceneStorage("navigatorExpansions") private var expansions: WrappedUUIDSet?
     @SceneStorage("navigatorSelection")  private var selection:  FileOrFolder.ID?
@@ -304,6 +334,7 @@ struct ContentView: View {
     
     var body: some View {
         Navigator(
+            projectURL: projectURL,
             viewState: fileNavigationViewState,
             columnVisibility: $columnVisibility,
             showSource: $showSource,
@@ -320,7 +351,17 @@ struct ContentView: View {
         }
         .onAppear {
             print("documents directory: \(URL.documentsDirectory)")
-            print("file url: \(String(describing: fileURL?.path()))")
+            print("file url: \(String(describing: projectURL?.path()))")
+            
+            if projectURL != nil {
+                do {
+                    try TypstLibrarySwift.setWorkingDirectory(path: (
+                        projectURL?.path()
+                    )!)
+                } catch {
+                    print("Failed to set working directory. Error: \(error)")
+                }
+            }
             
             if let savedSelection = selection {
                 fileNavigationViewState.selection = savedSelection
@@ -346,7 +387,7 @@ struct ContentView: View {
             ToolbarItemGroup(placement: .topBarTrailing) {
                 PhotosPicker(selection: $insertingPhotoItem, label: {
                     Label("Insert Image", systemImage: "photo.badge.plus")
-                }).disabled(true)
+                })
                 
                 Spacer()
                 
