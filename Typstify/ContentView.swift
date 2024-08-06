@@ -5,39 +5,50 @@
 //  Created by Cubik65536 on 2024-07-27.
 //
 
+import Files
 import PDFKit
 import PhotosUI
 import SwiftUI
 
 import CodeEditorView
 import LanguageSupport
+import ProjectNavigator
 import TypstLibrarySwift
 
-struct ContentView: View {
-    @Binding var document: TypstifyDocument
-    var directory: URL?
+// MARK: -
+// MARK: UUID serialisation
+
+extension UUID: @retroactive RawRepresentable {
+    public var rawValue: String { uuidString }
+    
+    public init?(rawValue: String) {
+        self.init(uuidString: rawValue)
+    }
+}
+
+// MARK: -
+// MARK: Views
+
+struct DocumentView: View {
+    @Binding var source:             String
+    @Binding var showSource:         Bool
+    @Binding var showPreview:        Bool
+    @Binding var insertingPhotoItem: PhotosPickerItem?
+    
+    @Environment(\.colorScheme) private var colorScheme: ColorScheme
     
     @State private var position:        CodeEditor.Position         = CodeEditor.Position()
     @State private var messages:        Set<TextLocated<Message>>   = Set()
     @State private var previewDocument: PDFDocument?                = nil
     
-    @State private var insertingPhotoItem: PhotosPickerItem?
-    
-    @State private var showSource:      Bool              = true
-    @State private var showPreview:     Bool              = true
     @State private var theme:           ColorScheme?      = nil
     @State private var showMinimap:     Bool              = true
     @State private var wrapText:        Bool              = true
     
-    @FocusState private var editorIsFocused: Bool
-    @FocusState private var documentIsFocused: Bool
-    
-    @Environment(\.colorScheme) private var colorScheme: ColorScheme
-    
-    func updatePreview() {
+    func updatePreview(source: String) {
         messages.removeAll()
         do {
-            try previewDocument = renderTypstDocument(from: document.text)
+            try previewDocument = renderTypstDocument(from: source)
         } catch let error as TypstCompilationError {
             let diagnostics = error.diagnostics()
             diagnostics.forEach { diagnostic in
@@ -94,19 +105,14 @@ struct ContentView: View {
                         Spacer()
                         
                         Toggle("Minimap", systemImage: "chart.bar.doc.horizontal", isOn: $showMinimap)
-#if os(macOS)
-                            .toggleStyle(.checkbox)
-#else
                             .toggleStyle(.button)
                             .labelStyle(.iconOnly)
                             .tint(Color.gray)
-                        
                             .dynamicTypeSize(DynamicTypeSize.small)
-#endif
                     }
                     
                     CodeEditor(
-                        text: $document.text,
+                        text: $source,
                         position: $position,
                         messages: $messages,
                         language: .swift(),
@@ -114,10 +120,6 @@ struct ContentView: View {
                     )
                     .environment(\.codeEditorTheme,
                                   colorScheme == .dark ? Theme.defaultDark : Theme.defaultLight)
-                    .focused($editorIsFocused)
-                    .onChange(of: document.text, {
-                        updatePreview()
-                    })
                 }
             }
             
@@ -125,75 +127,258 @@ struct ContentView: View {
                 TypstifyDocumentView(document: $previewDocument)
             }
         }
+        .onChange(of: source, {
+            updatePreview(source: source)
+        })
         .onAppear {
-            print("documents directory: \(URL.documentsDirectory)")
-            print("file directory: \(String(describing: directory?.path()))")
+            updatePreview(source: source)
+        }
+    }
+}
+
+struct FileContextMenu: View {
+    let cursor: FileNavigatorCursor<Payload>
+    
+    @Binding var editedText: String?
+    
+    let proxy:       File<Payload>.Proxy
+    let viewContext: ViewContext
+    
+    var body: some View {
+        Button {
+            editedText = cursor.name
+        } label: {
+            Label("Change name", systemImage: "pencil")
+        }
+        
+        Divider()
+        
+        Button(role: .destructive) {
+            withAnimation {
+                viewContext.remove(cursor: cursor)
+            }
+        } label: {
+            Label("Delete", systemImage: "trash")
+        }
+        
+    }
+}
+
+struct FolderContextMenu: View {
+    let cursor: FileNavigatorCursor<Payload>
+    
+    @Binding var editedText: String?
+    @Binding var folder:     ProxyFolder<Payload>
+    
+    let viewContext: ViewContext
+    
+    var body: some View {
+        Button {
+            withAnimation {
+                viewContext.add(item: FileOrFolder(file: File(contents: Payload(text: ""))),
+                                $to: $folder,
+                                withPreferredName: "untitled.typ")
+            }
+        } label: {
+            Label("New file", systemImage: "doc.badge.plus")
+        }
+        
+        Button {
+            withAnimation {
+                viewContext.add(item: FileOrFolder(folder: Folder(children: [:])), $to: $folder, withPreferredName: "Folder")
+            }
+        } label: {
+            Label("New folder", systemImage: "folder.badge.plus")
+        }
+        
+        // Only support rename and delete action if this menu doesn't apply to the root folder
+        if cursor.parent.wrappedValue != nil {
+            Divider()
             
-            if directory != nil {
-                do {
-                    try TypstLibrarySwift.setWorkingDirectory(path: (
-                        directory?.path()
-                    )!)
-                } catch {
-                    print("Failed to set working directory. Error: \(error)")
+            Button {
+                editedText = cursor.name
+            } label: {
+                Label("Change name", systemImage: "pencil")
+            }
+            
+            Divider()
+            
+            Button(role: .destructive) {
+                withAnimation {
+                    viewContext.remove(cursor: cursor)
                 }
-            }
-            
-            editorIsFocused = true
-            updatePreview()
-        }
-        .onChange(of: insertingPhotoItem) {
-            Task {
-                insertingPhotoItem?.writeToDirectory(
-                    directory: directory!,
-                    completionHandler: {  result in
-                        switch result {
-                        case .success(let url):
-                            let imageName = url.lastPathComponent
-                            DispatchQueue.main.async {
-                                document.text.append("""
-#figure(
-    image("\(imageName)"),
-    caption: [],
-)
-""")
-                            }
-                        case .failure(let failure):
-                            print(failure.localizedDescription)
-                        }
-                    })
+            } label: {
+                Label("Delete", systemImage: "trash")
             }
         }
-        .toolbar(content: {
-            ToolbarItemGroup(placement: .topBarTrailing) {
-                PhotosPicker(selection: $insertingPhotoItem, label: {
-                    Label("Insert Image", systemImage: "photo.badge.plus")
-                })
-                
-                Spacer()
-                
-                Toggle("Show Source", systemImage: "text.word.spacing", isOn: $showSource.animation())
-#if os(macOS)
-                    .toggleStyle(.checkbox)
-#else
-                    .toggleStyle(.button)
-                    .labelStyle(.iconOnly)
-#endif
-                
-                Toggle("Show Preview", systemImage: "sidebar.squares.right", isOn: $showPreview.animation(
-                    .linear
-                ))
-#if os(macOS)
-                .toggleStyle(.checkbox)
-#else
-                .toggleStyle(.button)
-                .labelStyle(.iconOnly)
-#endif
+    }
+}
+
+struct Navigator: View {
+    @Bindable var viewState: FileNavigatorViewState
+    
+    @Binding var columnVisibility:    NavigationSplitViewVisibility
+    @Binding var showSource:          Bool
+    @Binding var showPreview:         Bool
+    @Binding var insertingPhotoItem:  PhotosPickerItem?
+    
+    @Environment(TypstifyModel.self) private var model: TypstifyModel
+    @Environment(\.undoManager) var undoManager: UndoManager?
+    
+    @State private var selected: FileOrFolder.ID?
+    @State private var showDetail: Bool = false
+    
+    var body: some View {
+        @Bindable var model = model
+        let viewContext = ViewContext(viewState: viewState, model: model, undoManager: undoManager)
+        NavigationSplitView(columnVisibility: $columnVisibility) {
+            List(selection: $viewState.selection) {
+                FileNavigator(name: model.name,
+                              item: $model.document.texts.root,
+                              parent: .constant(nil),
+                              viewState: viewState)
+                { cursor, $editedText, proxy in
+                    
+                    EditableLabel(cursor.name, systemImage: "doc.plaintext.fill", editedText: $editedText)
+                        .onSubmit{ viewContext.rename(cursor: cursor, $to: $editedText) }
+                        .contextMenu{ FileContextMenu(cursor: cursor,
+                                                      editedText: $editedText,
+                                                      proxy: proxy,
+                                                      viewContext: viewContext) }
+                    
+                } folderLabel: { cursor, $editedText, $folder in
+                    
+                    EditableLabel(cursor.name, systemImage: "folder.fill", editedText: $editedText)
+                        .onSubmit{ viewContext.rename(cursor: cursor, $to: $editedText) }
+                        .contextMenu{ FolderContextMenu(cursor: cursor,
+                                                        editedText: $editedText,
+                                                        folder: $folder,
+                                                        viewContext: viewContext) }
+                    
+                }
+                .navigatorFilter{ $0.first != Character(".") }
+            }
+            .listStyle(.sidebar)
+            .toolbar(.hidden, for: .navigationBar)
+            .toolbar(removing: .sidebarToggle)
+        } detail: {
+            if showDetail {
+                if let uuid = selected,
+                   let $file = Binding(unwrap: model.document.texts.proxy(for: uuid).binding) {
+                    if let $text = Binding($file.contents.text) {
+                        DocumentView(
+                            source: $text,
+                            showSource: $showSource,
+                            showPreview: $showPreview,
+                            insertingPhotoItem: $insertingPhotoItem
+                        )
+                        .toolbar(.hidden, for: .navigationBar)
+                        .toolbar(removing: .sidebarToggle)
+                    } else { Text("Not a UTF-8 text file") }
+                } else { Text("Select a file") }
+            }
+        }
+        .onChange(of: viewState.selection, {
+            showDetail = false;
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(5)) {
+                selected = viewState.selection
+                showDetail = true;
             }
         })
     }
 }
 
-#Preview {
-    ContentView(document: .constant(TypstifyDocument(text: "Hello, World from `Typst`!")))
+/// This is the toplevel content view. It expects the app model as the environment object.
+struct ContentView: View {
+    var fileURL: URL?
+    
+    @SceneStorage("navigatorExpansions") private var expansions: WrappedUUIDSet?
+    @SceneStorage("navigatorSelection")  private var selection:  FileOrFolder.ID?
+    
+    @State private var fileNavigationViewState = FileNavigatorViewState()
+    
+    @State private var columnVisibility:    NavigationSplitViewVisibility   = NavigationSplitViewVisibility.all
+    @State private var showSource:          Bool                            = true
+    @State private var showPreview:         Bool                            = true
+    @State private var insertingPhotoItem:  PhotosPickerItem?
+    
+    var body: some View {
+        Navigator(
+            viewState: fileNavigationViewState,
+            columnVisibility: $columnVisibility,
+            showSource: $showSource,
+            showPreview: $showPreview,
+            insertingPhotoItem: $insertingPhotoItem
+        )
+        .onAppear {
+            if let savedExpansions = expansions {
+                fileNavigationViewState.expansions = savedExpansions
+            }
+        }
+        .onChange(of: fileNavigationViewState.expansions) {
+            expansions = fileNavigationViewState.expansions
+        }
+        .onAppear {
+            print("documents directory: \(URL.documentsDirectory)")
+            print("file url: \(String(describing: fileURL?.path()))")
+            
+            if let savedSelection = selection {
+                fileNavigationViewState.selection = savedSelection
+            }
+        }
+        .onChange(of: fileNavigationViewState.selection) {
+            selection = fileNavigationViewState.selection
+        }
+        .toolbar(content: {
+            ToolbarItemGroup(placement: .topBarLeading) {
+                Button(action: {
+                    if columnVisibility == .all {
+                        columnVisibility = .detailOnly
+                    } else {
+                        columnVisibility = .all
+                    }
+                }, label: {
+                    Label("Show File Navigator", systemImage: "sidebar.left")
+                        .labelStyle(.iconOnly)
+                })
+            }
+            
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                PhotosPicker(selection: $insertingPhotoItem, label: {
+                    Label("Insert Image", systemImage: "photo.badge.plus")
+                }).disabled(true)
+                
+                Spacer()
+                
+                Toggle("Show Source", systemImage: "text.word.spacing", isOn: $showSource.animation())
+                    .toggleStyle(.button)
+                    .labelStyle(.iconOnly)
+                
+                Toggle("Show Preview", systemImage: "sidebar.right", isOn: $showPreview.animation(
+                    .linear
+                ))
+                .toggleStyle(.button)
+                .labelStyle(.iconOnly)
+            }
+        })
+    }
+}
+
+
+// MARK: -
+// MARK: Preview
+
+struct ContentView_Previews: PreviewProvider {
+    struct Container: View {
+        let document = TypstifyDocument(text: "Hello, World!")
+        
+        var body: some View {
+            ContentView()
+                .environment(TypstifyModel(name: "Preview", document: document))
+        }
+    }
+    
+    static var previews: some View {
+        Container()
+    }
 }

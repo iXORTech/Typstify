@@ -1,5 +1,5 @@
 {
-  "originHash" : "44ce9f0a1f869776375ea3c5ecfecfd1b1e871d08b77b316d2161fcd8f17af10",
+  "originHash" : "c837430702b1d766180ac7194a27ae0c0f06b9f2268e76089923ebd6d521e1f5",
   "pins" : [
     {
       "identity" : "codeeditorview",
@@ -11,12 +11,30 @@
       }
     },
     {
+      "identity" : "projectnavigator",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mchakravarty/ProjectNavigator.git",
+      "state" : {
+        "revision" : "c5eba5b1dcbe59b79b8d41dbb2e9a1769e467a0e",
+        "version" : "1.2.0"
+      }
+    },
+    {
       "identity" : "rearrange",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ChimeHQ/Rearrange.git",
       "state" : {
         "revision" : "5ff7f3363f7a08f77e0d761e38e6add31c2136e1",
         "version" : "1.8.1"
+      }
+    },
+    {
+      "identity" : "swift-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-collections.git",
+      "state" : {
+        "revision" : "3d2dc41a01f9e49d84f0a3925fb858bed64f702d",
+        "version" : "1.1.2"
       }
     }
   ],
