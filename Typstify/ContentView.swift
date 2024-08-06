@@ -244,6 +244,7 @@ struct Navigator: View {
     @Bindable var viewState: FileNavigatorViewState
     
     @Binding var columnVisibility:    NavigationSplitViewVisibility
+    @Binding var documentOpen:        Bool
     @Binding var showSource:          Bool
     @Binding var showPreview:         Bool
     @Binding var insertingPhotoItem:  PhotosPickerItem?
@@ -299,10 +300,23 @@ struct Navigator: View {
                             showPreview: $showPreview,
                             insertingPhotoItem: $insertingPhotoItem
                         )
+                        .onAppear(perform: {
+                            documentOpen = true
+                        })
                         .toolbar(.hidden, for: .navigationBar)
                         .toolbar(removing: .sidebarToggle)
-                    } else { Text("Not a UTF-8 text file") }
-                } else { Text("Select a file") }
+                    } else {
+                        Text("Not a UTF-8 text file")
+                            .onAppear(perform: {
+                                documentOpen = false
+                            })
+                    }
+                } else {
+                    Text("Select a file")
+                        .onAppear(perform: {
+                            documentOpen = false
+                        })
+                }
             }
         }
         .onChange(of: viewState.selection, {
@@ -311,9 +325,6 @@ struct Navigator: View {
                 selected = viewState.selection
                 showDetail = true;
             }
-        })
-        .onChange(of: insertingPhotoItem, {
-            
         })
     }
 }
@@ -328,6 +339,7 @@ struct ContentView: View {
     @State private var fileNavigationViewState = FileNavigatorViewState()
     
     @State private var columnVisibility:    NavigationSplitViewVisibility   = NavigationSplitViewVisibility.all
+    @State private var documentOpen:        Bool                            = false
     @State private var showSource:          Bool                            = true
     @State private var showPreview:         Bool                            = true
     @State private var insertingPhotoItem:  PhotosPickerItem?
@@ -337,6 +349,7 @@ struct ContentView: View {
             projectURL: projectURL,
             viewState: fileNavigationViewState,
             columnVisibility: $columnVisibility,
+            documentOpen: $documentOpen,
             showSource: $showSource,
             showPreview: $showPreview,
             insertingPhotoItem: $insertingPhotoItem
@@ -387,19 +400,21 @@ struct ContentView: View {
             ToolbarItemGroup(placement: .topBarTrailing) {
                 PhotosPicker(selection: $insertingPhotoItem, label: {
                     Label("Insert Image", systemImage: "photo.badge.plus")
-                })
+                }).disabled(!documentOpen)
                 
                 Spacer()
                 
                 Toggle("Show Source", systemImage: "text.word.spacing", isOn: $showSource.animation())
                     .toggleStyle(.button)
                     .labelStyle(.iconOnly)
+                    .disabled(!documentOpen)
                 
                 Toggle("Show Preview", systemImage: "sidebar.right", isOn: $showPreview.animation(
                     .linear
                 ))
                 .toggleStyle(.button)
                 .labelStyle(.iconOnly)
+                .disabled(!documentOpen)
             }
         })
     }
