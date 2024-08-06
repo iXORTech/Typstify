@@ -9,30 +9,33 @@ import PhotosUI
 import SwiftUI
 
 extension PhotosPickerItem {
-    func writeToDirectory(directory: URL, completionHandler: @escaping (_ result: Result<URL, Error>) -> Void) {
-       self.loadTransferable(type: Data.self) { result in
-           switch result {
-           case .success(let data):
-               if let contentType = self.supportedContentTypes.first {
-                   let url = directory.appendingPathComponent("\(data?.MD5 ?? UUID().uuidString).\(contentType.preferredFilenameExtension ?? "")")
-                   
-                   if FileManager.default.fileExists(atPath: url.path) {
-                       completionHandler(.success(url))
-                       return
-                   }
-                   
-                   if let data = data {
-                       do {
-                           try data.write(to: url)
-                           completionHandler(.success(url))
-                       } catch {
-                           completionHandler(.failure(error))
-                       }
-                   }
-               }
-           case .failure(let failure):
-               completionHandler(.failure(failure))
-           }
-       }
+    func getData(completionHandler: @escaping (_ result: Result<Data, Error>) -> Void) {
+        self.loadTransferable(type: Data.self) { result in
+            switch result {
+            case .success(let data):
+                completionHandler(.success(data ?? Data()))
+            case .failure(let failure):
+                completionHandler(.failure(failure))
+            }
+        }
+    }
+    
+    func getFilename(completionHandler: @escaping (_ result: Result<String, Error>) -> Void) {
+        self.loadTransferable(type: Data.self) { result in
+            switch result {
+            case .success(let data):
+                if let contentType = self.supportedContentTypes.first {
+                    let fileName = data?.MD5 ?? UUID().uuidString
+                    let preferredFilenameExtension = contentType.preferredFilenameExtension ?? ""
+                    if preferredFilenameExtension.isEmpty {
+                        completionHandler(.success(fileName))
+                    } else {
+                        completionHandler(.success("\(fileName).\(preferredFilenameExtension)"))
+                    }
+                }
+            case .failure(let failure):
+                completionHandler(.failure(failure))
+            }
+        }
     }
 }

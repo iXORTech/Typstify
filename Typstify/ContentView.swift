@@ -35,7 +35,7 @@ struct DocumentView: View {
     @Binding var source:             String
     @Binding var showSource:         Bool
     @Binding var showPreview:        Bool
-    @Binding var insertingPhotoItem: PhotosPickerItem?
+    @Binding var insertingPhotoPath: Set<String>
     
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
     
@@ -135,26 +135,17 @@ struct DocumentView: View {
         .onAppear {
             updatePreview(source: source)
         }
-        .onChange(of: insertingPhotoItem) {
-            Task {
-                insertingPhotoItem?.writeToDirectory(
-                    directory: projectURL!,
-                    completionHandler: {  result in
-                        switch result {
-                        case .success(let url):
-                            let imageName = url.lastPathComponent
-                            DispatchQueue.main.async {
-                                source.append("""
-        #figure(
-            image("\(imageName)"),
-            caption: [],
-        )
-        """)
-                            }
-                        case .failure(let failure):
-                            print(failure.localizedDescription)
-                        }
-                    })
+        .onChange(of: insertingPhotoPath) {
+            DispatchQueue.main.async {
+                for path in insertingPhotoPath {
+                    source.append("""
+                        #figure(
+                            image("\(path)"),
+                            caption: [],
+                        )
+                        """)
+                }
+                insertingPhotoPath.removeAll()
             }
         }
     }
@@ -254,6 +245,7 @@ struct Navigator: View {
     
     @State private var selected: FileOrFolder.ID?
     @State private var showDetail: Bool = false
+    @State private var insertingPhotoPath: Set<String> = Set()
     
     var body: some View {
         @Bindable var model = model
@@ -277,6 +269,34 @@ struct Navigator: View {
                     
                     EditableLabel(cursor.name, systemImage: "folder.fill", editedText: $editedText)
                         .onSubmit{ viewContext.rename(cursor: cursor, $to: $editedText) }
+                        .onChange(of: insertingPhotoItem, {
+                            insertingPhotoItem?.getData(completionHandler: { result in
+                                switch result {
+                                case .success(let data):
+                                    insertingPhotoItem?.getFilename(completionHandler: { result in
+                                        switch result {
+                                        case .success(let name):
+                                            do {
+                                                try viewContext.add(
+                                                    item: FileOrFolder(
+                                                        file: File(contents: Payload(name: name, data: data))
+                                                    ),
+                                                    $to: $folder,
+                                                    withPreferredName: "\(name)"
+                                                )
+                                                insertingPhotoPath.insert(name)
+                                            } catch {
+                                                print("Image Insertion Error: \(error)")
+                                            }
+                                        case .failure(let failure):
+                                            print(failure.localizedDescription)
+                                        }
+                                    })
+                                case .failure(let failure):
+                                    print(failure.localizedDescription)
+                                }
+                            })
+                        })
                         .contextMenu{ FolderContextMenu(cursor: cursor,
                                                         editedText: $editedText,
                                                         folder: $folder,
@@ -298,7 +318,7 @@ struct Navigator: View {
                             source: $text,
                             showSource: $showSource,
                             showPreview: $showPreview,
-                            insertingPhotoItem: $insertingPhotoItem
+                            insertingPhotoPath: $insertingPhotoPath
                         )
                         .onAppear(perform: {
                             documentOpen = true
