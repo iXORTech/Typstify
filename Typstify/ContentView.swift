@@ -126,6 +126,9 @@ struct ContentView: View {
             }
         }
         .onAppear {
+            print("documents directory: \(URL.documentsDirectory)")
+            print("file directory: \(String(describing: directory?.path()))")
+            
             if directory != nil {
                 do {
                     try TypstLibrarySwift.setWorkingDirectory(path: (

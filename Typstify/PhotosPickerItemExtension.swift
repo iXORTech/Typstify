@@ -14,7 +14,12 @@ extension PhotosPickerItem {
            switch result {
            case .success(let data):
                if let contentType = self.supportedContentTypes.first {
-                   let url = directory.appendingPathComponent("\(UUID().uuidString).\(contentType.preferredFilenameExtension ?? "")")
+                   let url = directory.appendingPathComponent("\(data?.MD5 ?? UUID().uuidString).\(contentType.preferredFilenameExtension ?? "")")
+                   
+                   if FileManager.default.fileExists(atPath: url.path) {
+                       completionHandler(.success(url))
+                       return
+                   }
                    
                    if let data = data {
                        do {
