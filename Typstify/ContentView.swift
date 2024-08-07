@@ -163,7 +163,7 @@ struct FileContextMenu: View {
         Button {
             editedText = cursor.name
         } label: {
-            Label("Change name", systemImage: "pencil")
+            Label("Rename", systemImage: "pencil")
         }
         
         Divider()
@@ -185,25 +185,25 @@ struct FolderContextMenu: View {
     @Binding var editedText: String?
     @Binding var folder:     ProxyFolder<Payload>
     
+    @Binding var newFileFolderName: String
+    @Binding var showingNewTypstSourceAlert: Bool
+    @Binding var showingNewFolderAlert: Bool
+    
     let viewContext: ViewContext
     
     var body: some View {
         Button {
-            withAnimation {
-                viewContext.add(item: FileOrFolder(file: File(contents: Payload(text: ""))),
-                                $to: $folder,
-                                withPreferredName: "untitled.typ")
-            }
+            newFileFolderName = ""
+            showingNewTypstSourceAlert = true
         } label: {
-            Label("New file", systemImage: "doc.badge.plus")
+            Label("New Typst Source", systemImage: "doc.badge.plus")
         }
         
         Button {
-            withAnimation {
-                viewContext.add(item: FileOrFolder(folder: Folder(children: [:])), $to: $folder, withPreferredName: "Folder")
-            }
+            newFileFolderName = ""
+            showingNewFolderAlert = true
         } label: {
-            Label("New folder", systemImage: "folder.badge.plus")
+            Label("New Folder", systemImage: "folder.badge.plus")
         }
         
         // Only support rename and delete action if this menu doesn't apply to the root folder
@@ -213,7 +213,7 @@ struct FolderContextMenu: View {
             Button {
                 editedText = cursor.name
             } label: {
-                Label("Change name", systemImage: "pencil")
+                Label("Rename", systemImage: "pencil")
             }
             
             Divider()
@@ -247,6 +247,10 @@ struct Navigator: View {
     @State private var showDetail: Bool = false
     @State private var insertingPhotoPath: Set<String> = Set()
     
+    @State private var newFileFolderName: String = ""
+    @State private var showingNewTypstSourceAlert: Bool = false
+    @State private var showingNewFolderAlert: Bool = false
+    
     var body: some View {
         @Bindable var model = model
         let viewContext = ViewContext(viewState: viewState, model: model, undoManager: undoManager)
@@ -268,6 +272,30 @@ struct Navigator: View {
                 } folderLabel: { cursor, $editedText, $folder in
                     
                     EditableLabel(cursor.name, systemImage: "folder.fill", editedText: $editedText)
+                        .alert("Enter File Name", isPresented: $showingNewTypstSourceAlert) {
+                            TextField("untitled", text: $newFileFolderName)
+                            Button("OK") {
+                                withAnimation {
+                                    if newFileFolderName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                                        newFileFolderName = "untitled"
+                                    }
+                                    viewContext.add(item: FileOrFolder(file: File(contents: Payload(text: ""))),
+                                                    $to: $folder,
+                                                    withPreferredName: "\(newFileFolderName).typ")
+                                }
+                            }
+                        }
+                        .alert("Enter Folder Name", isPresented: $showingNewFolderAlert) {
+                            TextField("Folder", text: $newFileFolderName)
+                            Button("OK") {
+                                withAnimation {
+                                    if newFileFolderName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                                        newFileFolderName = "Folder"
+                                    }
+                                    viewContext.add(item: FileOrFolder(folder: Folder(children: [:])), $to: $folder, withPreferredName: "\(newFileFolderName)")
+                                }
+                            }
+                        }
                         .onSubmit{ viewContext.rename(cursor: cursor, $to: $editedText) }
                         .onChange(of: insertingPhotoItem, {
                             insertingPhotoItem?.getData(completionHandler: { result in
@@ -300,6 +328,9 @@ struct Navigator: View {
                         .contextMenu{ FolderContextMenu(cursor: cursor,
                                                         editedText: $editedText,
                                                         folder: $folder,
+                                                        newFileFolderName: $newFileFolderName,
+                                                        showingNewTypstSourceAlert: $showingNewTypstSourceAlert,
+                                                        showingNewFolderAlert: $showingNewFolderAlert,
                                                         viewContext: viewContext) }
                     
                 }
