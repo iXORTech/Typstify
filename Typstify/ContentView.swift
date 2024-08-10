@@ -243,6 +243,8 @@ struct Navigator: View {
     @Environment(TypstifyModel.self) private var model: TypstifyModel
     @Environment(\.undoManager) var undoManager: UndoManager?
     
+    @State private var changeByUndoManager: Bool = false
+    
     @State private var selected: FileOrFolder.ID?
     @State private var showDetail: Bool = false
     @State private var insertingPhotoPath: Set<String> = Set()
@@ -356,6 +358,23 @@ struct Navigator: View {
                         })
                         .toolbar(.hidden, for: .navigationBar)
                         .toolbar(removing: .sidebarToggle)
+                        .onChange(of: $text.wrappedValue) { (oldValue, newValue) in
+                            guard !changeByUndoManager else {
+                                changeByUndoManager = false
+                                return
+                            }
+                            
+#if os(iOS) || os(visionOS)
+                            undoManager?.registerUndo(withTarget: model) { [weak undoManager] _ in
+                                $text.wrappedValue = oldValue
+                                changeByUndoManager =  true
+                                undoManager?.registerUndo(withTarget: model) { _ in
+                                    $text.wrappedValue = newValue
+                                    changeByUndoManager =  true
+                                }
+                            }
+#endif
+                        }
                     } else {
                         Text("Not a UTF-8 text file")
                             .onAppear(perform: {
