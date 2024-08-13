@@ -232,7 +232,7 @@ struct FolderContextMenu: View {
 struct Navigator: View {
     var projectURL: URL?
     
-    @Bindable var viewState: FileNavigatorViewState
+    @Bindable var viewState: FileNavigatorViewState<Payload>
     
     @Binding var columnVisibility:    NavigationSplitViewVisibility
     @Binding var documentOpen:        Bool
@@ -406,7 +406,7 @@ struct ContentView: View {
     @SceneStorage("navigatorExpansions") private var expansions: WrappedUUIDSet?
     @SceneStorage("navigatorSelection")  private var selection:  FileOrFolder.ID?
     
-    @State private var fileNavigationViewState = FileNavigatorViewState()
+    @State private var fileNavigationViewState = FileNavigatorViewState<Payload>()
     
     @State private var columnVisibility:    NavigationSplitViewVisibility   = NavigationSplitViewVisibility.all
     @State private var documentOpen:        Bool                            = false

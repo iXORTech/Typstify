@@ -34,6 +34,19 @@ Typst, designed as an alternative for LaTeX, can be very useful for students for
 - [ ] Templates Support
 - [ ] Support for Additional Fonts
 
+## Building the App
+
+### Requirements
+
+- Xcode 15.0 or later
+- iPadOS 17.0 or later
+
+### Build
+
+To build the app, you have to build the Swift Package [typst-library-swift](https://github.com/iXORTech/typst-library-swift) first.
+
+Then, open the project, add the package `TypstLibrarySwift` into package dependencies, and build.
+
 ## Help Needed
 
 As of now, some help are needed to get the application into an usable state:
