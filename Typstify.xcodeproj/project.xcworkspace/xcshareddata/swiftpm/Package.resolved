@@ -1,5 +1,5 @@
 {
-  "originHash" : "c837430702b1d766180ac7194a27ae0c0f06b9f2268e76089923ebd6d521e1f5",
+  "originHash" : "fec607ea6580d6bf8570be6ad84de90421c3c7a433e2ec32f9123b7960d0096d",
   "pins" : [
     {
       "identity" : "codeeditorview",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mchakravarty/ProjectNavigator.git",
       "state" : {
-        "revision" : "c5eba5b1dcbe59b79b8d41dbb2e9a1769e467a0e",
-        "version" : "1.2.0"
+        "revision" : "38fc56f905e794d2ca4f1f6d993a045c815ca7a2",
+        "version" : "1.2.2"
       }
     },
     {
