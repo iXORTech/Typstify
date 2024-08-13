@@ -66,6 +66,12 @@ extension ViewContext {
         }
     }
     
+    func add(item: FullFileOrFolder<Payload>, @Binding to folder: ProxyFolder<Payload>?, withPreferredName preferredName: String) {
+        registerUndo {
+            folder!.add(item: item, withPreferredName: preferredName)
+        }
+    }
+    
     /// Remove the item idenfified by the given cursor.
     ///
     /// - Parameter cursor: The cursor identifying the item to be removed.

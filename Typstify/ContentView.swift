@@ -299,34 +299,6 @@ struct Navigator: View {
                             }
                         }
                         .onSubmit{ viewContext.rename(cursor: cursor, $to: $editedText) }
-                        .onChange(of: insertingPhotoItem, {
-                            insertingPhotoItem?.getData(completionHandler: { result in
-                                switch result {
-                                case .success(let data):
-                                    insertingPhotoItem?.getFilename(completionHandler: { result in
-                                        switch result {
-                                        case .success(let name):
-                                            do {
-                                                try viewContext.add(
-                                                    item: FileOrFolder(
-                                                        file: File(contents: Payload(name: name, data: data))
-                                                    ),
-                                                    $to: $folder,
-                                                    withPreferredName: "\(name)"
-                                                )
-                                                insertingPhotoPath.insert(name)
-                                            } catch {
-                                                print("Image Insertion Error: \(error)")
-                                            }
-                                        case .failure(let failure):
-                                            print(failure.localizedDescription)
-                                        }
-                                    })
-                                case .failure(let failure):
-                                    print(failure.localizedDescription)
-                                }
-                            })
-                        })
                         .contextMenu{ FolderContextMenu(cursor: cursor,
                                                         editedText: $editedText,
                                                         folder: $folder,
@@ -375,6 +347,34 @@ struct Navigator: View {
                             }
 #endif
                         }
+                        .onChange(of: insertingPhotoItem, {
+                            insertingPhotoItem?.getData(completionHandler: { result in
+                                switch result {
+                                case .success(let data):
+                                    insertingPhotoItem?.getFilename(completionHandler: { result in
+                                        switch result {
+                                        case .success(let name):
+                                            do {
+                                                try viewContext.add(
+                                                    item: FileOrFolder(
+                                                        file: File(contents: Payload(name: name, data: data))
+                                                    ),
+                                                    $to: viewState.dominantFolder!,
+                                                    withPreferredName: "\(name)"
+                                                )
+                                                insertingPhotoPath.insert(name)
+                                            } catch {
+                                                print("Image Insertion Error: \(error)")
+                                            }
+                                        case .failure(let failure):
+                                            print(failure.localizedDescription)
+                                        }
+                                    })
+                                case .failure(let failure):
+                                    print(failure.localizedDescription)
+                                }
+                            })
+                        })
                     } else {
                         Text("Not a UTF-8 text file")
                             .onAppear(perform: {
