@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,7 +19,7 @@
 		3E57045D2C555BB9003233AA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57045C2C555BB9003233AA /* ContentView.swift */; };
 		3E57045F2C555BBA003233AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E57045E2C555BBA003233AA /* Assets.xcassets */; };
 		3E5704622C555BBA003233AA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E5704612C555BBA003233AA /* Preview Assets.xcassets */; };
-		3E57046A2C555C40003233AA /* TypstLibrarySwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3E5704692C555C40003233AA /* TypstLibrarySwift */; };
+		3ED48E182C6C361700396903 /* libtypstify_rust_library.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ED48E172C6C360B00396903 /* libtypstify_rust_library.a */; };
 		3EE1AA692C606990003C913A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE1AA682C60698D003C913A /* AppDelegate.swift */; };
 		3EE1AA862C606CF6003C913A /* HLSRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE1AA812C606CF6003C913A /* HLSRuntime.m */; };
 		3EE1AA872C606CF6003C913A /* SwizzleHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE1AA852C606CF6003C913A /* SwizzleHelper.m */; };
@@ -41,6 +41,12 @@
 		3E57045E2C555BBA003233AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E5704612C555BBA003233AA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3EBA29B42C55D7D000ACBAD3 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		3ED48E152C6C345000396903 /* Typstify-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Typstify-Bridging-Header.h"; sourceTree = "<group>"; };
+		3ED48E172C6C360B00396903 /* libtypstify_rust_library.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtypstify_rust_library.a; path = ../target/universal/debug/libtypstify_rust_library.a; sourceTree = "<group>"; };
+		3ED48E192C6C36B900396903 /* SwiftBridgeCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SwiftBridgeCore.h; path = Generated/SwiftBridgeCore.h; sourceTree = "<group>"; };
+		3ED48E1A2C6C36B900396903 /* SwiftBridgeCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SwiftBridgeCore.swift; path = Generated/SwiftBridgeCore.swift; sourceTree = "<group>"; };
+		3ED48E1B2C6C36B900396903 /* typstify-rust-library.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "typstify-rust-library.h"; sourceTree = "<group>"; };
+		3ED48E1C2C6C36B900396903 /* typstify-rust-library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "typstify-rust-library.swift"; sourceTree = "<group>"; };
 		3EE1AA682C60698D003C913A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3EE1AA802C606CF6003C913A /* HLSRuntime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLSRuntime.h; sourceTree = "<group>"; };
 		3EE1AA812C606CF6003C913A /* HLSRuntime.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLSRuntime.m; sourceTree = "<group>"; };
@@ -48,7 +54,6 @@
 		3EE1AA832C606CF6003C913A /* HLSWeakObjectWrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLSWeakObjectWrapper.m; sourceTree = "<group>"; };
 		3EE1AA842C606CF6003C913A /* SwizzleHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwizzleHelper.h; sourceTree = "<group>"; };
 		3EE1AA852C606CF6003C913A /* SwizzleHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwizzleHelper.m; sourceTree = "<group>"; };
-		3EE1AA892C606D00003C913A /* Typstify-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Typstify-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		3EF634102C59E29500B3BF5C /* TypstifyDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypstifyDocument.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -58,8 +63,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E2D55C02C61AFC000F24C26 /* Files in Frameworks */,
-				3E57046A2C555C40003233AA /* TypstLibrarySwift in Frameworks */,
 				3E2AD0C62C57372F005A85AB /* LanguageSupport in Frameworks */,
+				3ED48E182C6C361700396903 /* libtypstify_rust_library.a in Frameworks */,
 				3E2AD0C42C57372F005A85AB /* CodeEditorView in Frameworks */,
 				3E2D55C22C61AFC000F24C26 /* ProjectNavigator in Frameworks */,
 			);
@@ -71,10 +76,15 @@
 		3E57044E2C555BB9003233AA = {
 			isa = PBXGroup;
 			children = (
-				3E0304FA2C6AE9E500EF4D87 /* README.md */,
+				3ED48E1D2C6C36B900396903 /* typstify-rust-library */,
+				3ED48E192C6C36B900396903 /* SwiftBridgeCore.h */,
+				3ED48E1A2C6C36B900396903 /* SwiftBridgeCore.swift */,
+				3ED48E152C6C345000396903 /* Typstify-Bridging-Header.h */,
 				3E5704592C555BB9003233AA /* Typstify */,
 				3EBA29B42C55D7D000ACBAD3 /* LICENSE */,
+				3E0304FA2C6AE9E500EF4D87 /* README.md */,
 				3E5704582C555BB9003233AA /* Products */,
+				3ED48E162C6C360B00396903 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,7 +115,6 @@
 				3EE1AA832C606CF6003C913A /* HLSWeakObjectWrapper.m */,
 				3EE1AA842C606CF6003C913A /* SwizzleHelper.h */,
 				3EE1AA852C606CF6003C913A /* SwizzleHelper.m */,
-				3EE1AA892C606D00003C913A /* Typstify-Bridging-Header.h */,
 				3E57045E2C555BBA003233AA /* Assets.xcassets */,
 				3E5704602C555BBA003233AA /* Preview Content */,
 			);
@@ -120,6 +129,23 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		3ED48E162C6C360B00396903 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3ED48E172C6C360B00396903 /* libtypstify_rust_library.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3ED48E1D2C6C36B900396903 /* typstify-rust-library */ = {
+			isa = PBXGroup;
+			children = (
+				3ED48E1B2C6C36B900396903 /* typstify-rust-library.h */,
+				3ED48E1C2C6C36B900396903 /* typstify-rust-library.swift */,
+			);
+			path = "typstify-rust-library";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -127,6 +153,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3E5704652C555BBA003233AA /* Build configuration list for PBXNativeTarget "Typstify" */;
 			buildPhases = (
+				3ED48E142C6C33BB00396903 /* ShellScript */,
 				3E5704532C555BB9003233AA /* Sources */,
 				3E5704542C555BB9003233AA /* Frameworks */,
 				3E5704552C555BB9003233AA /* Resources */,
@@ -137,7 +164,6 @@
 			);
 			name = Typstify;
 			packageProductDependencies = (
-				3E5704692C555C40003233AA /* TypstLibrarySwift */,
 				3E2AD0C32C57372F005A85AB /* CodeEditorView */,
 				3E2AD0C52C57372F005A85AB /* LanguageSupport */,
 				3E2D55BF2C61AFC000F24C26 /* Files */,
@@ -172,7 +198,6 @@
 			);
 			mainGroup = 3E57044E2C555BB9003233AA;
 			packageReferences = (
-				3E5704682C555C40003233AA /* XCLocalSwiftPackageReference "../typst-library-swift/TypstLibrarySwift" */,
 				3E2AD0C22C57372F005A85AB /* XCRemoteSwiftPackageReference "CodeEditorView" */,
 				3E2D55BE2C61AFC000F24C26 /* XCRemoteSwiftPackageReference "ProjectNavigator" */,
 			);
@@ -196,6 +221,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3ED48E142C6C33BB00396903 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./build-rust.sh\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3E5704532C555BB9003233AA /* Sources */ = {
@@ -365,6 +410,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../target/universal/debug";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.ixor.Typstify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -373,7 +419,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Typstify/Typstify-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Typstify-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -406,6 +452,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../target/universal/release";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.ixor.Typstify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -414,7 +461,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Typstify/Typstify-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Typstify-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -442,13 +489,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCLocalSwiftPackageReference section */
-		3E5704682C555C40003233AA /* XCLocalSwiftPackageReference "../typst-library-swift/TypstLibrarySwift" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = "../typst-library-swift/TypstLibrarySwift";
-		};
-/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
 		3E2AD0C22C57372F005A85AB /* XCRemoteSwiftPackageReference "CodeEditorView" */ = {
@@ -489,10 +529,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3E2D55BE2C61AFC000F24C26 /* XCRemoteSwiftPackageReference "ProjectNavigator" */;
 			productName = ProjectNavigator;
-		};
-		3E5704692C555C40003233AA /* TypstLibrarySwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = TypstLibrarySwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

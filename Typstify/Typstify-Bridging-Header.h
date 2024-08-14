@@ -15,3 +15,11 @@
 // If you do have a better solution, please do help me.
 
 #import "SwizzleHelper.h"
+
+#ifndef BridgingHeader_h
+#define BridgingHeader_h
+
+#include "Generated/SwiftBridgeCore.h"
+#include "Generated/typstify/typstify-rust-library.h"
+
+#endif
