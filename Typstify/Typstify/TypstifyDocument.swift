@@ -12,7 +12,6 @@ import UniformTypeIdentifiers
 import Observation
 import os
 
-import TypstLibrarySwift
 
 private let logger = Logger(subsystem: "dev.ixor.Typstify", category: "Typstify")
 
@@ -23,8 +22,12 @@ extension UTType {
 }
 
 func renderTypstDocument(from source: String) throws -> PDFDocument? {
-    let document = try TypstLibrarySwift.getRenderedDocumentPdf(source: source)
-    return PDFDocument(data: document)
+    let document = try get_rendered_document_pdf(source)
+    var elements: Array<UInt8> = Array()
+    for value in document {
+        elements.append(value)
+    }
+    return PDFDocument(data: Data(elements))
 }
 
 // MARK: -

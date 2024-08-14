@@ -44,3 +44,18 @@ fi
 #   echo "Skipping the script because of preview mode"
 # fi
 
+# Added for now to make `throw TypstCompilationError` work
+# Related issue:
+# - https://github.com/chinedufn/swift-bridge/issues/260
+# - https://github.com/chinedufn/swift-bridge/issues/150
+fileContent=$(<Generated/typstify-rust-library/typstify-rust-library.swift)
+if [[ $fileContent == *"extension TypstCompilationError: @unchecked Sendable {}"* ]]; then
+  echo "Skipping adding extension TypstCompilationError: @unchecked Sendable {}"
+else
+  echo "extension TypstCompilationError: @unchecked Sendable {}" >> Generated/typstify-rust-library/typstify-rust-library.swift
+fi
+if [[ $fileContent == *"extension TypstCompilationError: Error {}"* ]]; then
+  echo "Skipping adding extension TypstCompilationError: Error {}"
+else
+  echo "extension TypstCompilationError: Error {}" >> Generated/typstify-rust-library/typstify-rust-library.swift
+fi

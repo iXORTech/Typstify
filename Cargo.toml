@@ -13,3 +13,25 @@ crate-type = ["staticlib"]
 
 [dependencies]
 swift-bridge = "0.1"
+
+# typst essentials
+typst = "0.11.0"
+comemo = "0.4"
+
+# typst rendering
+typst-pdf = "0.11.0"
+typst-svg = "0.11.0"
+
+# Fetching and unzipping packages
+zune-inflate = { version = "0.2", default_features = false, features = [
+  "gzip",
+  "std",
+] }
+tar = "0.4"
+ureq = "2.9"
+
+# utils
+time = "0.3"
+ttf-parser = "0.24.0"
+thiserror = "1.0.63"
+urlencoding = "2.1.3"

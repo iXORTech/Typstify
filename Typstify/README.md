@@ -25,7 +25,7 @@ Typst, designed as an alternative for LaTeX, can be very useful for students for
 - [x] Real-Time PDF Preview
 - [x] Real-Time Syntax Error Check
 - [x] Access to Online Packages
-- [x] Image Insertion
+- [ ] Image Insertion
 - [ ] Syntax Highlighting
 - [ ] Sketching
 - [ ] Drag-and-Drop Support
@@ -69,10 +69,9 @@ If you're interested, please consider sponsoring the project via [GitHub Sponsor
 
 This project relies on these open source projects:
 
-- [typst-library-swift](https://github.com/iXORTech/typst-library-swift): A bridge that allows Swift apps to communicate with the Typst library, written in Rust. Which relies on:
-  - [Typst Libraries](https://crates.io/crates/typst) for [Typst](https://typst.app) related functionality such as Typst document rendering and syntax check.
-  - [cargo-swift](https://github.com/antoniusnaumann/cargo-swift) for building Swift packages from Rust code.
-  - [tfachmann/typst-as-library](https://github.com/tfachmann/typst-as-library) for providing a wrapper around the Typst Library.
+- [Typst Libraries](https://crates.io/crates/typst) for [Typst](https://typst.app) related functionality such as Typst document rendering and syntax check.
+- [tfachmann/typst-as-library](https://github.com/tfachmann/typst-as-library) for providing a wrapper around the Typst Library.
+- [chinedufn/swift-bridge](https://github.com/chinedufn/swift-bridge) for enabling Swift-Rust interoperability.
 - [mchakravarty/CodeEditorView](https://github.com/mchakravarty/CodeEditorView): A SwiftUI code editor view for iOS, visionOS, and macOS
 - [mchakravarty/ProjectNavigator](https://github.com/mchakravarty/ProjectNavigator): A SwiftUI project navigation view for macOS and iOS
 

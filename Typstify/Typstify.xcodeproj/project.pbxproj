@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E0295B02C6C48CB00A4F20C /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 3E0295AC2C6C48CB00A4F20C /* .gitignore */; };
+		3E0295B12C6C48CB00A4F20C /* typstify-rust-library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0295AA2C6C48CB00A4F20C /* typstify-rust-library.swift */; };
+		3E0295B22C6C48CB00A4F20C /* SwiftBridgeCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0295AE2C6C48CB00A4F20C /* SwiftBridgeCore.swift */; };
 		3E1002632C5C222400A9E0C7 /* PhotosPickerItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1002622C5C221D00A9E0C7 /* PhotosPickerItemExtension.swift */; };
 		3E2AD0C42C57372F005A85AB /* CodeEditorView in Frameworks */ = {isa = PBXBuildFile; productRef = 3E2AD0C32C57372F005A85AB /* CodeEditorView */; };
 		3E2AD0C62C57372F005A85AB /* LanguageSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 3E2AD0C52C57372F005A85AB /* LanguageSupport */; };
@@ -28,6 +31,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E0295A92C6C48CB00A4F20C /* typstify-rust-library.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "typstify-rust-library.h"; sourceTree = "<group>"; };
+		3E0295AA2C6C48CB00A4F20C /* typstify-rust-library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "typstify-rust-library.swift"; sourceTree = "<group>"; };
+		3E0295AC2C6C48CB00A4F20C /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		3E0295AD2C6C48CB00A4F20C /* SwiftBridgeCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftBridgeCore.h; sourceTree = "<group>"; };
+		3E0295AE2C6C48CB00A4F20C /* SwiftBridgeCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBridgeCore.swift; sourceTree = "<group>"; };
 		3E0304FA2C6AE9E500EF4D87 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3E1002622C5C221D00A9E0C7 /* PhotosPickerItemExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosPickerItemExtension.swift; sourceTree = "<group>"; };
 		3E2AD0CB2C574B1A005A85AB /* TypstifyDocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypstifyDocumentView.swift; sourceTree = "<group>"; };
@@ -43,10 +51,6 @@
 		3EBA29B42C55D7D000ACBAD3 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		3ED48E152C6C345000396903 /* Typstify-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Typstify-Bridging-Header.h"; sourceTree = "<group>"; };
 		3ED48E172C6C360B00396903 /* libtypstify_rust_library.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtypstify_rust_library.a; path = ../target/universal/debug/libtypstify_rust_library.a; sourceTree = "<group>"; };
-		3ED48E192C6C36B900396903 /* SwiftBridgeCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SwiftBridgeCore.h; path = Generated/SwiftBridgeCore.h; sourceTree = "<group>"; };
-		3ED48E1A2C6C36B900396903 /* SwiftBridgeCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SwiftBridgeCore.swift; path = Generated/SwiftBridgeCore.swift; sourceTree = "<group>"; };
-		3ED48E1B2C6C36B900396903 /* typstify-rust-library.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "typstify-rust-library.h"; sourceTree = "<group>"; };
-		3ED48E1C2C6C36B900396903 /* typstify-rust-library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "typstify-rust-library.swift"; sourceTree = "<group>"; };
 		3EE1AA682C60698D003C913A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3EE1AA802C606CF6003C913A /* HLSRuntime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLSRuntime.h; sourceTree = "<group>"; };
 		3EE1AA812C606CF6003C913A /* HLSRuntime.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLSRuntime.m; sourceTree = "<group>"; };
@@ -73,12 +77,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E0295AB2C6C48CB00A4F20C /* typstify-rust-library */ = {
+			isa = PBXGroup;
+			children = (
+				3E0295A92C6C48CB00A4F20C /* typstify-rust-library.h */,
+				3E0295AA2C6C48CB00A4F20C /* typstify-rust-library.swift */,
+			);
+			path = "typstify-rust-library";
+			sourceTree = "<group>";
+		};
+		3E0295AF2C6C48CB00A4F20C /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				3E0295AB2C6C48CB00A4F20C /* typstify-rust-library */,
+				3E0295AC2C6C48CB00A4F20C /* .gitignore */,
+				3E0295AD2C6C48CB00A4F20C /* SwiftBridgeCore.h */,
+				3E0295AE2C6C48CB00A4F20C /* SwiftBridgeCore.swift */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
 		3E57044E2C555BB9003233AA = {
 			isa = PBXGroup;
 			children = (
-				3ED48E1D2C6C36B900396903 /* typstify-rust-library */,
-				3ED48E192C6C36B900396903 /* SwiftBridgeCore.h */,
-				3ED48E1A2C6C36B900396903 /* SwiftBridgeCore.swift */,
+				3E0295AF2C6C48CB00A4F20C /* Generated */,
 				3ED48E152C6C345000396903 /* Typstify-Bridging-Header.h */,
 				3E5704592C555BB9003233AA /* Typstify */,
 				3EBA29B42C55D7D000ACBAD3 /* LICENSE */,
@@ -137,15 +159,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		3ED48E1D2C6C36B900396903 /* typstify-rust-library */ = {
-			isa = PBXGroup;
-			children = (
-				3ED48E1B2C6C36B900396903 /* typstify-rust-library.h */,
-				3ED48E1C2C6C36B900396903 /* typstify-rust-library.swift */,
-			);
-			path = "typstify-rust-library";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -153,7 +166,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3E5704652C555BBA003233AA /* Build configuration list for PBXNativeTarget "Typstify" */;
 			buildPhases = (
-				3ED48E142C6C33BB00396903 /* ShellScript */,
+				3E0295B32C6C538500A4F20C /* ShellScript */,
 				3E5704532C555BB9003233AA /* Sources */,
 				3E5704542C555BB9003233AA /* Frameworks */,
 				3E5704552C555BB9003233AA /* Resources */,
@@ -216,6 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E5704622C555BBA003233AA /* Preview Assets.xcassets in Resources */,
+				3E0295B02C6C48CB00A4F20C /* .gitignore in Resources */,
 				3E57045F2C555BBA003233AA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -223,7 +237,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3ED48E142C6C33BB00396903 /* ShellScript */ = {
+		3E0295B32C6C538500A4F20C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -249,6 +263,8 @@
 			files = (
 				3EE1AA692C606990003C913A /* AppDelegate.swift in Sources */,
 				3EE1AA862C606CF6003C913A /* HLSRuntime.m in Sources */,
+				3E0295B12C6C48CB00A4F20C /* typstify-rust-library.swift in Sources */,
+				3E0295B22C6C48CB00A4F20C /* SwiftBridgeCore.swift in Sources */,
 				3E2D55BD2C61A17A00F24C26 /* Hashing.swift in Sources */,
 				3EE1AA872C606CF6003C913A /* SwizzleHelper.m in Sources */,
 				3E2D55C62C61B60A00F24C26 /* ViewContext.swift in Sources */,
@@ -393,6 +409,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Typstify/Preview Content\"";
 				DEVELOPMENT_TEAM = QT93JJ48BC;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Typstify/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Typstify;
@@ -435,6 +452,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Typstify/Preview Content\"";
 				DEVELOPMENT_TEAM = QT93JJ48BC;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Typstify/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Typstify;

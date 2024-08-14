@@ -13,7 +13,6 @@ import SwiftUI
 import CodeEditorView
 import LanguageSupport
 import ProjectNavigator
-import TypstLibrarySwift
 
 // MARK: -
 // MARK: UUID serialisation
@@ -54,18 +53,16 @@ struct DocumentView: View {
         } catch let error as TypstCompilationError {
             let diagnostics = error.diagnostics()
             diagnostics.forEach { diagnostic in
-                let line = diagnostic.lineStart
-                let column = diagnostic.columnStart
+                let line = diagnostic.line_start()
+                let column = diagnostic.column_start()
                 
-                let category = switch diagnostic.severity {
-                case SourceDiagnosticResultSeverity.error:
-                    Message.Category.error
-                case SourceDiagnosticResultSeverity.warning:
-                    Message.Category.warning
+                let category = switch diagnostic.severity() {
+                case .Error: Message.Category.error
+                case .Warning: Message.Category.warning
                 }
                 
-                let length = diagnostic.columnEnd - diagnostic.columnStart
-                let summary = diagnostic.message
+                let length = diagnostic.column_end() - diagnostic.column_start()
+                let summary = diagnostic.message().toString()
                 
                 messages.insert(
                     TextLocated(
@@ -436,15 +433,15 @@ struct ContentView: View {
             print("documents directory: \(URL.documentsDirectory)")
             print("file url: \(String(describing: projectURL?.path()))")
             
-            if projectURL != nil {
-                do {
-                    try TypstLibrarySwift.setWorkingDirectory(path: (
-                        projectURL?.path()
-                    )!)
-                } catch {
-                    print("Failed to set working directory. Error: \(error)")
-                }
-            }
+//            if projectURL != nil {
+//                do {
+//                    try TypstLibrarySwift.setWorkingDirectory(path: (
+//                        projectURL?.path()
+//                    )!)
+//                } catch {
+//                    print("Failed to set working directory. Error: \(error)")
+//                }
+//            }
             
             if let savedSelection = selection {
                 fileNavigationViewState.selection = savedSelection
