@@ -13,7 +13,7 @@
 > [!IMPORTANT]
 > Typstify is currently in development and not yet recommended for production use. You can test-drive the current in development version by building the app on your own and run it.
 >
-> There's no TestFlight version of the app yet. As this is an open-source product, and there's no plan for placing any feature behind paywalls, I would like to raise as much fund as possible for the 99USD/year Apple Developer License before publishing it on App Store or TestFlight. If you're interested, please consider sponsoring the project via [GitHub Sponsors](https://github.com/sponsors/Cubik65536) or [Buy me a Coffee](https://buymeacoffee.com/cubik65536). All sponsor records (i.e. who’s sponsoring) will be public unless you choose to make it private, and you can leave a message indicating that the donation is for Typstify project so you could be in the sponsors list below.
+> The app is not available on App Store or TestFlight yet. As there's major issues related to performance and some important feature are not refined, there's currently no plan to release this app on App Store or TestFlight.
 
 ## Motivation
 
@@ -63,7 +63,7 @@ As there's no plan to put any feature behind a paywall or make this a paid app, 
 
 - *become the first sponsor!*
 
-
+If you're interested, please consider sponsoring the project via [GitHub Sponsors](https://github.com/sponsors/Cubik65536) or [Buy me a Coffee](https://buymeacoffee.com/cubik65536). All sponsor records (i.e. who’s sponsoring) will be public unless you choose to make it private, and you can leave a message indicating that the donation is for Typstify project so you could be in this sponsors list.
 
 ## Credits & Acknowledgments
 
