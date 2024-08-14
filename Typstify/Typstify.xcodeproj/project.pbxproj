@@ -36,7 +36,6 @@
 		3E0295AC2C6C48CB00A4F20C /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		3E0295AD2C6C48CB00A4F20C /* SwiftBridgeCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftBridgeCore.h; sourceTree = "<group>"; };
 		3E0295AE2C6C48CB00A4F20C /* SwiftBridgeCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBridgeCore.swift; sourceTree = "<group>"; };
-		3E0304FA2C6AE9E500EF4D87 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3E1002622C5C221D00A9E0C7 /* PhotosPickerItemExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosPickerItemExtension.swift; sourceTree = "<group>"; };
 		3E2AD0CB2C574B1A005A85AB /* TypstifyDocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypstifyDocumentView.swift; sourceTree = "<group>"; };
 		3E2AD0CD2C57503A005A85AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -48,7 +47,6 @@
 		3E57045C2C555BB9003233AA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3E57045E2C555BBA003233AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E5704612C555BBA003233AA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		3EBA29B42C55D7D000ACBAD3 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		3ED48E152C6C345000396903 /* Typstify-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Typstify-Bridging-Header.h"; sourceTree = "<group>"; };
 		3ED48E172C6C360B00396903 /* libtypstify_rust_library.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtypstify_rust_library.a; path = ../target/universal/debug/libtypstify_rust_library.a; sourceTree = "<group>"; };
 		3EE1AA682C60698D003C913A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -103,8 +101,6 @@
 				3E0295AF2C6C48CB00A4F20C /* Generated */,
 				3ED48E152C6C345000396903 /* Typstify-Bridging-Header.h */,
 				3E5704592C555BB9003233AA /* Typstify */,
-				3EBA29B42C55D7D000ACBAD3 /* LICENSE */,
-				3E0304FA2C6AE9E500EF4D87 /* README.md */,
 				3E5704582C555BB9003233AA /* Products */,
 				3ED48E162C6C360B00396903 /* Frameworks */,
 			);

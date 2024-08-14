@@ -38,14 +38,21 @@ Typst, designed as an alternative for LaTeX, can be very useful for students for
 
 ### Requirements
 
+- macOS Ventura 13.5 or later
+- Rust 1.80.0 or later
+- [cargo-lipo](https://github.com/TimNN/cargo-lipo)
 - Xcode 15.0 or later
 - iPadOS 17.0 or later
 
 ### Build
 
-To build the app, you have to build the Swift Package [typst-library-swift](https://github.com/iXORTech/typst-library-swift) first.
+Open the Xcode project via `Typstify/Typstify.xcodeproj`, and then build.
 
-Then, open the project, add the package `TypstLibrarySwift` into package dependencies, and build.
+`src` contains all Rust codes for using Typst library in Swift.
+
+`Typstify` contains all codes and resources for the iPadOS app.
+
+If you just need to build the Rust module and the bridge, run `PROJECT_DIR="${PWD}/Typstify" ./Typstify/build-rust.sh` in the project root.
 
 ## Help Needed
 
