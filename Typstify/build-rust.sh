@@ -44,7 +44,7 @@ fi
 #   echo "Skipping the script because of preview mode"
 # fi
 
-# Added for now to make `throw TypstCompilationError` work
+# Added for now to make error throwable works
 # Related issue:
 # - https://github.com/chinedufn/swift-bridge/issues/260
 # - https://github.com/chinedufn/swift-bridge/issues/150
@@ -58,4 +58,24 @@ if [[ $fileContent == *"extension TypstCompilationError: Error {}"* ]]; then
   echo "Skipping adding extension TypstCompilationError: Error {}"
 else
   echo "extension TypstCompilationError: Error {}" >> Generated/typstify-rust-library/typstify-rust-library.swift
+fi
+if [[ $fileContent == *"extension FailedToSetWorkingDirectory: @unchecked Sendable {}"* ]]; then
+  echo "Skipping adding extension FailedToSetWorkingDirectory: @unchecked Sendable {}"
+else
+  echo "extension FailedToSetWorkingDirectory: @unchecked Sendable {}" >> Generated/typstify-rust-library/typstify-rust-library.swift
+fi
+if [[ $fileContent == *"extension FailedToSetWorkingDirectory: Error {}"* ]]; then
+  echo "Skipping adding extension FailedToSetWorkingDirectory: Error {}"
+else
+  echo "extension FailedToSetWorkingDirectory: Error {}" >> Generated/typstify-rust-library/typstify-rust-library.swift
+fi
+if [[ $fileContent == *"extension FailedToGetWorkingDirectory: @unchecked Sendable {}"* ]]; then
+  echo "Skipping adding extension FailedToGetWorkingDirectory: @unchecked Sendable {}"
+else
+  echo "extension FailedToGetWorkingDirectory: @unchecked Sendable {}" >> Generated/typstify-rust-library/typstify-rust-library.swift
+fi
+if [[ $fileContent == *"extension FailedToGetWorkingDirectory: Error {}"* ]]; then
+  echo "Skipping adding extension FailedToGetWorkingDirectory: Error {}"
+else
+  echo "extension FailedToGetWorkingDirectory: Error {}" >> Generated/typstify-rust-library/typstify-rust-library.swift
 fi

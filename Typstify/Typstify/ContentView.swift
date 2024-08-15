@@ -433,15 +433,13 @@ struct ContentView: View {
             print("documents directory: \(URL.documentsDirectory)")
             print("file url: \(String(describing: projectURL?.path()))")
             
-//            if projectURL != nil {
-//                do {
-//                    try TypstLibrarySwift.setWorkingDirectory(path: (
-//                        projectURL?.path()
-//                    )!)
-//                } catch {
-//                    print("Failed to set working directory. Error: \(error)")
-//                }
-//            }
+            if projectURL != nil {
+                do {
+                    try set_working_directory((projectURL?.path())!)
+                } catch {
+                    print("Failed to set working directory. Error: \(error)")
+                }
+            }
             
             if let savedSelection = selection {
                 fileNavigationViewState.selection = savedSelection

@@ -26,6 +26,18 @@ mod ffi {
     }
 
     extern "Rust" {
+        type FailedToSetWorkingDirectory;
+
+        fn message(&self) -> String;
+    }
+
+    extern "Rust" {
+        type FailedToGetWorkingDirectory;
+
+        fn message(&self) -> String;
+    }
+
+    extern "Rust" {
         type TypstCompilationError;
 
         fn message(self: &TypstCompilationError) -> String;
@@ -33,8 +45,8 @@ mod ffi {
 
         fn get_rendered_document_svg(source: String) -> Result<String, TypstCompilationError>;
         fn get_rendered_document_pdf(source: String) -> Result<Vec<u8>, TypstCompilationError>;
-        // fn set_working_directory(&self, path: String) -> Result<(), String>;
-        // fn get_working_directory(&self) -> Result<String, String>;
+        fn set_working_directory(path: String) -> Result<(), FailedToSetWorkingDirectory>;
+        fn get_working_directory() -> Result<String, FailedToGetWorkingDirectory>;
     }
 }
 
@@ -132,10 +144,49 @@ impl Display for TypstCompilationError {
     }
 }
 
-#[derive(Debug)]
-enum FileManagementError {
-    FailedToSetWorkingDirectory { path: String },
-    FailedToGetWorkingDirectory { error: String },
+// Temporarily disabled due to lack of support in the Swift Bridge used.
+// #[derive(Debug)]
+// enum FileManagementError {
+//     FailedToSetWorkingDirectory { path: String },
+//     FailedToGetWorkingDirectory { error: String },
+// }
+
+pub struct FailedToSetWorkingDirectory {
+    path: String,
+}
+
+impl FailedToSetWorkingDirectory {
+    pub fn message(&self) -> String {
+        let mut message = String::new();
+        message.push_str("Failed to set working directory to ");
+        message.push_str(&self.path);
+        message
+    }
+}
+
+impl Display for FailedToSetWorkingDirectory {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.message())
+    }
+}
+
+pub struct FailedToGetWorkingDirectory {
+    error: String,
+}
+
+impl FailedToGetWorkingDirectory {
+    pub fn message(&self) -> String {
+        let mut message = String::new();
+        message.push_str("Failed to get working directory. Error: ");
+        message.push_str(&self.error);
+        message
+    }
+}
+
+impl Display for FailedToGetWorkingDirectory {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.message())
+    }
 }
 
 fn add_fallback_font(source: String) -> String {
@@ -183,30 +234,30 @@ pub fn get_rendered_document_pdf(source: String) -> Result<Vec<u8>, TypstCompila
     Ok(typst_pdf::pdf(&get_rendered_document(source)?, Smart::Auto, None))
 }
 
-pub fn set_working_directory(path: String) -> Result<(), FileManagementError> {
+pub fn set_working_directory(path: String) -> Result<(), FailedToSetWorkingDirectory> {
     let decoded = urlencoding::decode(&path);
     if decoded.is_err() {
-        return Err(FileManagementError::FailedToSetWorkingDirectory { path });
+        return Err(FailedToSetWorkingDirectory { path });
     }
     let r = std::env::set_current_dir(decoded.unwrap().into_owned());
     match r {
         Ok(_) => Ok(()),
-        Err(_) => Err(FileManagementError::FailedToSetWorkingDirectory { path }),
+        Err(_) => Err(FailedToSetWorkingDirectory { path }),
     }
 }
 
-pub fn get_working_directory() -> Result<String, FileManagementError> {
+pub fn get_working_directory() -> Result<String, FailedToGetWorkingDirectory> {
     let r = std::env::current_dir();
     match r {
         Ok(path) => {
             match path.to_str() {
                 Some(path_str) => Ok(path_str.to_owned()),
-                None => Err(FileManagementError::FailedToGetWorkingDirectory {
+                None => Err(FailedToGetWorkingDirectory {
                     error: "Failed to convert path to string.".to_owned()
                 }),
             }
         }
-        Err(err) => Err(FileManagementError::FailedToGetWorkingDirectory {
+        Err(err) => Err(FailedToGetWorkingDirectory {
             error: err.to_string()
         }),
     }
