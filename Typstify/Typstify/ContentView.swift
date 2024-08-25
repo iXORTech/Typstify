@@ -17,7 +17,7 @@ import ProjectNavigator
 // MARK: -
 // MARK: UUID serialisation
 
-extension UUID: @retroactive RawRepresentable {
+extension UUID: RawRepresentable {
     public var rawValue: String { uuidString }
     
     public init?(rawValue: String) {
@@ -351,6 +351,7 @@ struct Navigator: View {
                                     insertingPhotoItem?.getFilename(completionHandler: { result in
                                         switch result {
                                         case .success(let name):
+                                                let fullPath = (projectURL?.appendingPathComponent(name).path) ?? ""
                                             do {
                                                 try viewContext.add(
                                                     item: FileOrFolder(
@@ -359,6 +360,8 @@ struct Navigator: View {
                                                     $to: viewState.dominantFolder!,
                                                     withPreferredName: "\(name)"
                                                 )
+                                                try data.write(to: URL(fileURLWithPath: fullPath))
+                                                
                                                 insertingPhotoPath.insert(name)
                                             } catch {
                                                 print("Image Insertion Error: \(error)")
