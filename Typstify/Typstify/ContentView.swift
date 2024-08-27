@@ -17,7 +17,7 @@ import ProjectNavigator
 // MARK: -
 // MARK: UUID serialisation
 
-extension UUID: RawRepresentable {
+extension UUID: @retroactive RawRepresentable {
     public var rawValue: String { uuidString }
     
     public init?(rawValue: String) {
