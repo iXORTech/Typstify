@@ -351,7 +351,7 @@ struct Navigator: View {
                                     insertingPhotoItem?.getFilename(completionHandler: { result in
                                         switch result {
                                         case .success(let name):
-                                                let fullPath = (projectURL?.appendingPathComponent(name).path) ?? ""
+                                            let fullPath = (projectURL?.appendingPathComponent(name).path) ?? ""
                                             do {
                                                 try viewContext.add(
                                                     item: FileOrFolder(
