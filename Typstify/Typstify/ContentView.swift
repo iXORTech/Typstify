@@ -351,7 +351,16 @@ struct Navigator: View {
                                     insertingPhotoItem?.getFilename(completionHandler: { result in
                                         switch result {
                                         case .success(let name):
-                                            let fullPath = (projectURL?.appendingPathComponent(name).path) ?? ""
+                                            var dir = projectURL
+                                            if let dominantFolder = viewState.dominantFolder {
+                                                if let foler = dominantFolder.wrappedValue {
+                                                    let folderPath = model.document.texts.filePath(of: foler.id).string
+                                                    if !folderPath.isEmpty {
+                                                        dir = projectURL?.appendingPathComponent(folderPath)
+                                                    }
+                                                }
+                                            }
+
                                             do {
                                                 try viewContext.add(
                                                     item: FileOrFolder(
@@ -360,8 +369,16 @@ struct Navigator: View {
                                                     $to: viewState.dominantFolder!,
                                                     withPreferredName: "\(name)"
                                                 )
-                                                try data.write(to: URL(fileURLWithPath: fullPath))
                                                 
+                                                var isDirectory: ObjCBool = true
+                                                if !FileManager.default.fileExists(atPath: dir?.path() ?? "", isDirectory: &isDirectory) {
+                                                    if let directory = dir {
+                                                        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+                                                    }
+                                                }
+                                                
+                                                let fullPath = dir?.appendingPathComponent(name).path()
+                                                try data.write(to: URL(fileURLWithPath: fullPath ?? ""))
                                                 insertingPhotoPath.insert(name)
                                             } catch {
                                                 print("Image Insertion Error: \(error)")
