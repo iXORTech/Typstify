@@ -412,6 +412,24 @@ struct Navigator: View {
                 selected = viewState.selection
                 showDetail = true;
             }
+            
+            if projectURL != nil {
+                if let dominantFolder = viewState.dominantFolder {
+                    if let foler = dominantFolder.wrappedValue {
+                        let folderPath = model.document.texts.filePath(of: foler.id).string
+                        do {
+                            if folderPath.isEmpty {
+                                try set_working_directory((projectURL?.path())!)
+                            } else {
+                                print("Setting working directory to: \((projectURL?.appendingPathComponent(folderPath).path())!)")
+                                try set_working_directory((projectURL?.appendingPathComponent(folderPath).path())!)
+                            }
+                        } catch {
+                            print("Failed to set working directory. Error: \(error)")
+                        }
+                    }
+                }
+            }
         })
     }
 }
@@ -450,17 +468,6 @@ struct ContentView: View {
             expansions = fileNavigationViewState.expansions
         }
         .onAppear {
-            print("documents directory: \(URL.documentsDirectory)")
-            print("file url: \(String(describing: projectURL?.path()))")
-            
-            if projectURL != nil {
-                do {
-                    try set_working_directory((projectURL?.path())!)
-                } catch {
-                    print("Failed to set working directory. Error: \(error)")
-                }
-            }
-            
             if let savedSelection = selection {
                 fileNavigationViewState.selection = savedSelection
             }
