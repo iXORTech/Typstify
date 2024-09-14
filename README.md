@@ -13,7 +13,7 @@
 > [!IMPORTANT]
 > Typstify is currently **NOT** in active development as my other projects and school works has a relatively higher priority. But, I am still working on Typstify bit by bit.
 >
-> - @Cubik65536 (Developer)
+> \- @Cubik65536 (Developer)
 
 > [!IMPORTANT]
 > Typstify is currently in development and not yet recommended for production use. You can test-drive the current in development version by building the app on your own and run it.
