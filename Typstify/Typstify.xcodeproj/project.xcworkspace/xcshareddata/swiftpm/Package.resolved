@@ -1,13 +1,13 @@
 {
-  "originHash" : "fec607ea6580d6bf8570be6ad84de90421c3c7a433e2ec32f9123b7960d0096d",
+  "originHash" : "a8d11f8c2b24a9b9afdb2c78955d41beea9ca578d3b73f8732a51dabb964f971",
   "pins" : [
     {
-      "identity" : "codeeditorview",
+      "identity" : "coretextswift",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/mchakravarty/CodeEditorView.git",
+      "location" : "https://github.com/krzyzanowskim/CoreTextSwift",
       "state" : {
-        "revision" : "13ecb15e9017a025e340359dadacf471913e91b1",
-        "version" : "0.13.0"
+        "revision" : "833177201d6421e6322296f39fce6ff6ae52618a",
+        "version" : "0.2.0"
       }
     },
     {
@@ -20,12 +20,21 @@
       }
     },
     {
-      "identity" : "rearrange",
+      "identity" : "sttextkitplus",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ChimeHQ/Rearrange.git",
+      "location" : "https://github.com/krzyzanowskim/STTextKitPlus",
       "state" : {
-        "revision" : "5ff7f3363f7a08f77e0d761e38e6add31c2136e1",
-        "version" : "1.8.1"
+        "revision" : "ebc71aaa6137b45ad289d1faf6e7687b6b9488e9",
+        "version" : "0.1.9"
+      }
+    },
+    {
+      "identity" : "sttextview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/krzyzanowskim/STTextView",
+      "state" : {
+        "revision" : "31b5e3c656de3fab29a86f1ab0c3f30f68f4314b",
+        "version" : "2.1.1"
       }
     },
     {

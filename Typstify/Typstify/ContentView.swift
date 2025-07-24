@@ -10,9 +10,12 @@ import PDFKit
 import PhotosUI
 import SwiftUI
 
-import CodeEditorView
-import LanguageSupport
 import ProjectNavigator
+import STTextViewSwiftUI
+
+typealias Font = UIFont
+typealias Color = UIColor
+let textColor = Color.label
 
 // MARK: -
 // MARK: UUID serialisation
@@ -36,62 +39,19 @@ struct DocumentView: View {
     @Binding var showPreview:        Bool
     @Binding var insertingPhotoPath: Set<String>
     
-    @Environment(\.colorScheme) private var colorScheme: ColorScheme
-    
-    @State private var position:        CodeEditor.Position         = CodeEditor.Position()
-    @State private var messages:        Set<TextLocated<Message>>   = Set()
+    @State private var editor: AttributedString = ""
+    @State private var selection: NSRange?
+    @State private var counter = 0
+    @State private var font = Font.monospacedSystemFont(ofSize: 0, weight: .medium)
     @State private var previewDocument: PDFDocument?                = nil
     
-    @State private var theme:           ColorScheme?      = nil
-    @State private var showMinimap:     Bool              = true
-    @State private var wrapText:        Bool              = true
     
     func updatePreview(source: String) {
-        messages.removeAll()
         do {
             try previewDocument = renderTypstDocument(from: source)
         } catch let error as TypstCompilationError {
-            let diagnostics = error.diagnostics()
-            diagnostics.forEach { diagnostic in
-                let line = diagnostic.line_start()
-                let column = diagnostic.column_start()
-                
-                let category = switch diagnostic.severity() {
-                case .Error: Message.Category.error
-                case .Warning: Message.Category.warning
-                }
-                
-                let length = diagnostic.column_end() - diagnostic.column_start()
-                let summary = diagnostic.message().toString()
-                
-                messages.insert(
-                    TextLocated(
-                        location: TextLocation(oneBasedLine: Int(line), column: Int(column)),
-                        entity: Message(
-                            category: category,
-                            length: Int(length),
-                            summary: summary,
-                            description: NSAttributedString("")
-                        )
-                    )
-                )
-            }
-            
             previewDocument = nil
         } catch {
-            messages.insert(
-                TextLocated(
-                    location: TextLocation(oneBasedLine: 1, column: 1),
-                    entity: Message(
-                        category: Message.Category.error,
-                        length: 1,
-                        summary: "Unknown Error Occurred",
-                        description: NSAttributedString(
-                            "An unknown error prevented the compilation of the Typst Document"
-                        )
-                    )
-                )
-            )
             previewDocument = nil
         }
     }
@@ -100,37 +60,46 @@ struct DocumentView: View {
         HStack {
             if showSource {
                 VStack {
-                    HStack {
-                        Spacer()
-                        
-                        Toggle("Minimap", systemImage: "chart.bar.doc.horizontal", isOn: $showMinimap)
-                            .toggleStyle(.button)
-                            .labelStyle(.iconOnly)
-                            .tint(Color.gray)
-                            .dynamicTypeSize(DynamicTypeSize.small)
-                    }
-                    
-                    CodeEditor(
-                        text: $source,
-                        position: $position,
-                        messages: $messages,
-                        language: .swift(),
-                        layout: CodeEditor.LayoutConfiguration(showMinimap: showMinimap, wrapText: wrapText)
+                    TextView(
+                        text: $editor,
+                        selection: $selection,
+                        options: [.wrapLines, .highlightSelectedLine, .showLineNumbers]
                     )
-                    .environment(\.codeEditorTheme,
-                                  colorScheme == .dark ? Theme.defaultDark : Theme.defaultLight)
+                    .textViewFont(font)
+                    .onChange(of: editor, {
+                        source = String(editor.characters)
+                    })
+                    
+                    HStack {
+                        if let selection {
+                            Text("Location: \(selection.location)")
+                        } else {
+                            Text("No selection")
+                        }
+                        
+                        Spacer()
+                    }
+                    .padding(.vertical, 4)
+                    .padding(.horizontal, 8)
                 }
             }
-            
             if showPreview {
                 TypstifyDocumentView(document: $previewDocument)
             }
         }
         .onChange(of: source, {
             updatePreview(source: source)
+            self.editor = AttributedString(
+                source,
+                attributes: AttributeContainer([.foregroundColor: textColor, .font: font])
+            )
         })
         .onAppear {
             updatePreview(source: source)
+            self.editor = AttributedString(
+                source,
+                attributes: AttributeContainer([.foregroundColor: textColor, .font: font])
+            )
         }
         .onChange(of: insertingPhotoPath) {
             DispatchQueue.main.async {
@@ -144,6 +113,10 @@ struct DocumentView: View {
                 }
                 insertingPhotoPath.removeAll()
             }
+            self.editor = AttributedString(
+                source,
+                attributes: AttributeContainer([.foregroundColor: textColor, .font: font])
+            )
         }
     }
 }
@@ -360,7 +333,7 @@ struct Navigator: View {
                                                     }
                                                 }
                                             }
-
+                                            
                                             do {
                                                 try viewContext.add(
                                                     item: FileOrFolder(

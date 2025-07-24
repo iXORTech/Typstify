@@ -11,8 +11,6 @@
 		3E0295B12C6C48CB00A4F20C /* typstify-rust-library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0295AA2C6C48CB00A4F20C /* typstify-rust-library.swift */; };
 		3E0295B22C6C48CB00A4F20C /* SwiftBridgeCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0295AE2C6C48CB00A4F20C /* SwiftBridgeCore.swift */; };
 		3E1002632C5C222400A9E0C7 /* PhotosPickerItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1002622C5C221D00A9E0C7 /* PhotosPickerItemExtension.swift */; };
-		3E2AD0C42C57372F005A85AB /* CodeEditorView in Frameworks */ = {isa = PBXBuildFile; productRef = 3E2AD0C32C57372F005A85AB /* CodeEditorView */; };
-		3E2AD0C62C57372F005A85AB /* LanguageSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 3E2AD0C52C57372F005A85AB /* LanguageSupport */; };
 		3E2AD0CC2C574B1A005A85AB /* TypstifyDocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AD0CB2C574B1A005A85AB /* TypstifyDocumentView.swift */; };
 		3E2D55BD2C61A17A00F24C26 /* Hashing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2D55BC2C61A15E00F24C26 /* Hashing.swift */; };
 		3E2D55C02C61AFC000F24C26 /* Files in Frameworks */ = {isa = PBXBuildFile; productRef = 3E2D55BF2C61AFC000F24C26 /* Files */; };
@@ -22,6 +20,7 @@
 		3E57045D2C555BB9003233AA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57045C2C555BB9003233AA /* ContentView.swift */; };
 		3E57045F2C555BBA003233AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E57045E2C555BBA003233AA /* Assets.xcassets */; };
 		3E5704622C555BBA003233AA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E5704612C555BBA003233AA /* Preview Assets.xcassets */; };
+		3E9C77582E32B04200885574 /* STTextView in Frameworks */ = {isa = PBXBuildFile; productRef = 3E9C77572E32B04200885574 /* STTextView */; };
 		3ED48E182C6C361700396903 /* libtypstify_rust_library.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ED48E172C6C360B00396903 /* libtypstify_rust_library.a */; };
 		3EE1AA692C606990003C913A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE1AA682C60698D003C913A /* AppDelegate.swift */; };
 		3EE1AA862C606CF6003C913A /* HLSRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE1AA812C606CF6003C913A /* HLSRuntime.m */; };
@@ -65,9 +64,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E2D55C02C61AFC000F24C26 /* Files in Frameworks */,
-				3E2AD0C62C57372F005A85AB /* LanguageSupport in Frameworks */,
+				3E9C77582E32B04200885574 /* STTextView in Frameworks */,
 				3ED48E182C6C361700396903 /* libtypstify_rust_library.a in Frameworks */,
-				3E2AD0C42C57372F005A85AB /* CodeEditorView in Frameworks */,
 				3E2D55C22C61AFC000F24C26 /* ProjectNavigator in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -173,10 +171,9 @@
 			);
 			name = Typstify;
 			packageProductDependencies = (
-				3E2AD0C32C57372F005A85AB /* CodeEditorView */,
-				3E2AD0C52C57372F005A85AB /* LanguageSupport */,
 				3E2D55BF2C61AFC000F24C26 /* Files */,
 				3E2D55C12C61AFC000F24C26 /* ProjectNavigator */,
+				3E9C77572E32B04200885574 /* STTextView */,
 			);
 			productName = Typstify;
 			productReference = 3E5704572C555BB9003233AA /* Typstify.app */;
@@ -207,8 +204,8 @@
 			);
 			mainGroup = 3E57044E2C555BB9003233AA;
 			packageReferences = (
-				3E2AD0C22C57372F005A85AB /* XCRemoteSwiftPackageReference "CodeEditorView" */,
 				3E2D55BE2C61AFC000F24C26 /* XCRemoteSwiftPackageReference "ProjectNavigator" */,
+				3E9C77562E32B04200885574 /* XCRemoteSwiftPackageReference "STTextView" */,
 			);
 			productRefGroup = 3E5704582C555BB9003233AA /* Products */;
 			projectDirPath = "";
@@ -248,7 +245,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./build-rust.sh\n";
+			shellScript = "export PROJECT_DIR=\"/Users/cubik65536/Developer/Typstify/Typstify\"\n./build-rust.sh\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -505,14 +502,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		3E2AD0C22C57372F005A85AB /* XCRemoteSwiftPackageReference "CodeEditorView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mchakravarty/CodeEditorView.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.13.0;
-			};
-		};
 		3E2D55BE2C61AFC000F24C26 /* XCRemoteSwiftPackageReference "ProjectNavigator" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mchakravarty/ProjectNavigator.git";
@@ -521,19 +510,17 @@
 				minimumVersion = 1.2.0;
 			};
 		};
+		3E9C77562E32B04200885574 /* XCRemoteSwiftPackageReference "STTextView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzyzanowskim/STTextView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		3E2AD0C32C57372F005A85AB /* CodeEditorView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3E2AD0C22C57372F005A85AB /* XCRemoteSwiftPackageReference "CodeEditorView" */;
-			productName = CodeEditorView;
-		};
-		3E2AD0C52C57372F005A85AB /* LanguageSupport */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3E2AD0C22C57372F005A85AB /* XCRemoteSwiftPackageReference "CodeEditorView" */;
-			productName = LanguageSupport;
-		};
 		3E2D55BF2C61AFC000F24C26 /* Files */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3E2D55BE2C61AFC000F24C26 /* XCRemoteSwiftPackageReference "ProjectNavigator" */;
@@ -543,6 +530,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3E2D55BE2C61AFC000F24C26 /* XCRemoteSwiftPackageReference "ProjectNavigator" */;
 			productName = ProjectNavigator;
+		};
+		3E9C77572E32B04200885574 /* STTextView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E9C77562E32B04200885574 /* XCRemoteSwiftPackageReference "STTextView" */;
+			productName = STTextView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
