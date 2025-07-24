@@ -13,6 +13,8 @@ fi
 
 cd $PROJECT_DIR
 
+cd "/Users/mew/proj/Typstify/Typstify"
+
 export PATH="$HOME/.cargo/bin:$PATH"
 
 # Without this we can't compile on MacOS Big Sur
