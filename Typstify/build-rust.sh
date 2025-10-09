@@ -11,7 +11,7 @@ if [[ -z "$PROJECT_DIR" ]]; then
     exit 1
 fi
 
-cd $PROJECT_DIR
+# cd $PROJECT_DIR
 
 cd "/Users/mew/proj/Typstify/Typstify"
 
