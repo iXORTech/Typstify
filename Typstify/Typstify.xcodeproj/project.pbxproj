@@ -27,6 +27,7 @@
 		3EE1AA872C606CF6003C913A /* SwizzleHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE1AA852C606CF6003C913A /* SwizzleHelper.m */; };
 		3EE1AA882C606CF6003C913A /* HLSWeakObjectWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE1AA832C606CF6003C913A /* HLSWeakObjectWrapper.m */; };
 		3EF634112C59E29E00B3BF5C /* TypstifyDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF634102C59E29500B3BF5C /* TypstifyDocument.swift */; };
+		D47ED7E12E9C70A700EE6FED /* Typstify.icon in Resources */ = {isa = PBXBuildFile; fileRef = D47ED7E02E9C70A700EE6FED /* Typstify.icon */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		3EE1AA842C606CF6003C913A /* SwizzleHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwizzleHelper.h; sourceTree = "<group>"; };
 		3EE1AA852C606CF6003C913A /* SwizzleHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwizzleHelper.m; sourceTree = "<group>"; };
 		3EF634102C59E29500B3BF5C /* TypstifyDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypstifyDocument.swift; sourceTree = "<group>"; };
+		D47ED7E02E9C70A700EE6FED /* Typstify.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = Typstify.icon; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 		3E57044E2C555BB9003233AA = {
 			isa = PBXGroup;
 			children = (
+				D47ED7E02E9C70A700EE6FED /* Typstify.icon */,
 				3E0295AF2C6C48CB00A4F20C /* Generated */,
 				3ED48E152C6C345000396903 /* Typstify-Bridging-Header.h */,
 				3E5704592C555BB9003233AA /* Typstify */,
@@ -221,6 +224,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D47ED7E12E9C70A700EE6FED /* Typstify.icon in Resources */,
 				3E5704622C555BBA003233AA /* Preview Assets.xcassets in Resources */,
 				3E0295B02C6C48CB00A4F20C /* .gitignore in Resources */,
 				3E57045F2C555BBA003233AA /* Assets.xcassets in Resources */,
@@ -399,7 +403,7 @@
 		3E5704662C555BBA003233AA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Typstify;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -441,7 +445,7 @@
 		3E5704672C555BBA003233AA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Typstify;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

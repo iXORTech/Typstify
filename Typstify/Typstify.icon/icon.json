@@ -1,0 +1,76 @@
+{
+  "fill" : {
+    "solid" : "srgb:0.13725,0.61569,0.67843,1.00000"
+  },
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "fill" : {
+            "solid" : "extended-gray:1.00000,1.00000"
+          },
+          "image-name" : "1.arrows.svg",
+          "name" : "1.arrows"
+        }
+      ],
+      "lighting" : "individual",
+      "opacity" : 0.85,
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "specular" : true,
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    },
+    {
+      "blend-mode" : "normal",
+      "blur-material" : 0.5,
+      "layers" : [
+        {
+          "fill" : {
+            "solid" : "extended-gray:1.00000,1.00000"
+          },
+          "image-name" : "2.letter.svg",
+          "name" : "2.letter",
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              -221.25060859774243,
+              -171.84913371861154
+            ]
+          }
+        },
+        {
+          "fill" : {
+            "solid" : "extended-gray:1.00000,1.00000"
+          },
+          "image-name" : "3.pencil.svg",
+          "name" : "3.pencil",
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              242.01582223561778,
+              143.8620204385353
+            ]
+          }
+        }
+      ],
+      "opacity" : 1,
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 1
+      },
+      "specular" : true,
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "squares" : "shared"
+  }
+}
