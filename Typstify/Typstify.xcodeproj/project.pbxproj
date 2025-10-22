@@ -21,6 +21,9 @@
 		3E57045F2C555BBA003233AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E57045E2C555BBA003233AA /* Assets.xcassets */; };
 		3E5704622C555BBA003233AA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E5704612C555BBA003233AA /* Preview Assets.xcassets */; };
 		3E9C77582E32B04200885574 /* STTextView in Frameworks */ = {isa = PBXBuildFile; productRef = 3E9C77572E32B04200885574 /* STTextView */; };
+		3E9C775C2E32BD9100885574 /* STTextViewAnnotationsPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 3E9C775B2E32BD9100885574 /* STTextViewAnnotationsPlugin */; };
+		3E9C775F2E32BDFA00885574 /* STTextView-Plugin-Neon in Frameworks */ = {isa = PBXBuildFile; productRef = 3E9C775E2E32BDFA00885574 /* STTextView-Plugin-Neon */; };
+		3E9C77612E32BE7A00885574 /* AnnotationDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9C77602E32BE7900885574 /* AnnotationDataSource.swift */; };
 		3ED48E182C6C361700396903 /* libtypstify_rust_library.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ED48E172C6C360B00396903 /* libtypstify_rust_library.a */; };
 		3EE1AA692C606990003C913A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE1AA682C60698D003C913A /* AppDelegate.swift */; };
 		3EE1AA862C606CF6003C913A /* HLSRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE1AA812C606CF6003C913A /* HLSRuntime.m */; };
@@ -46,6 +49,7 @@
 		3E57045C2C555BB9003233AA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3E57045E2C555BBA003233AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E5704612C555BBA003233AA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		3E9C77602E32BE7900885574 /* AnnotationDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationDataSource.swift; sourceTree = "<group>"; };
 		3ED48E152C6C345000396903 /* Typstify-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Typstify-Bridging-Header.h"; sourceTree = "<group>"; };
 		3ED48E172C6C360B00396903 /* libtypstify_rust_library.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtypstify_rust_library.a; path = ../target/universal/debug/libtypstify_rust_library.a; sourceTree = "<group>"; };
 		3EE1AA682C60698D003C913A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +70,8 @@
 				3E2D55C02C61AFC000F24C26 /* Files in Frameworks */,
 				3E9C77582E32B04200885574 /* STTextView in Frameworks */,
 				3ED48E182C6C361700396903 /* libtypstify_rust_library.a in Frameworks */,
+				3E9C775C2E32BD9100885574 /* STTextViewAnnotationsPlugin in Frameworks */,
+				3E9C775F2E32BDFA00885574 /* STTextView-Plugin-Neon in Frameworks */,
 				3E2D55C22C61AFC000F24C26 /* ProjectNavigator in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -115,6 +121,7 @@
 		3E5704592C555BB9003233AA /* Typstify */ = {
 			isa = PBXGroup;
 			children = (
+				3E9C77602E32BE7900885574 /* AnnotationDataSource.swift */,
 				3EE1AA682C60698D003C913A /* AppDelegate.swift */,
 				3E57045C2C555BB9003233AA /* ContentView.swift */,
 				3E2D55BC2C61A15E00F24C26 /* Hashing.swift */,
@@ -174,6 +181,8 @@
 				3E2D55BF2C61AFC000F24C26 /* Files */,
 				3E2D55C12C61AFC000F24C26 /* ProjectNavigator */,
 				3E9C77572E32B04200885574 /* STTextView */,
+				3E9C775B2E32BD9100885574 /* STTextViewAnnotationsPlugin */,
+				3E9C775E2E32BDFA00885574 /* STTextView-Plugin-Neon */,
 			);
 			productName = Typstify;
 			productReference = 3E5704572C555BB9003233AA /* Typstify.app */;
@@ -206,6 +215,8 @@
 			packageReferences = (
 				3E2D55BE2C61AFC000F24C26 /* XCRemoteSwiftPackageReference "ProjectNavigator" */,
 				3E9C77562E32B04200885574 /* XCRemoteSwiftPackageReference "STTextView" */,
+				3E9C775A2E32BD9100885574 /* XCRemoteSwiftPackageReference "STTextView-Plugin-Annotations" */,
+				3E9C775D2E32BDFA00885574 /* XCRemoteSwiftPackageReference "STTextView-Plugin-Neon" */,
 			);
 			productRefGroup = 3E5704582C555BB9003233AA /* Products */;
 			projectDirPath = "";
@@ -257,6 +268,7 @@
 				3EE1AA692C606990003C913A /* AppDelegate.swift in Sources */,
 				3EE1AA862C606CF6003C913A /* HLSRuntime.m in Sources */,
 				3E0295B12C6C48CB00A4F20C /* typstify-rust-library.swift in Sources */,
+				3E9C77612E32BE7A00885574 /* AnnotationDataSource.swift in Sources */,
 				3E0295B22C6C48CB00A4F20C /* SwiftBridgeCore.swift in Sources */,
 				3E2D55BD2C61A17A00F24C26 /* Hashing.swift in Sources */,
 				3EE1AA872C606CF6003C913A /* SwizzleHelper.m in Sources */,
@@ -514,8 +526,24 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/krzyzanowskim/STTextView";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.1.1;
+				branch = main;
+				kind = branch;
+			};
+		};
+		3E9C775A2E32BD9100885574 /* XCRemoteSwiftPackageReference "STTextView-Plugin-Annotations" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzyzanowskim/STTextView-Plugin-Annotations";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		3E9C775D2E32BDFA00885574 /* XCRemoteSwiftPackageReference "STTextView-Plugin-Neon" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzyzanowskim/STTextView-Plugin-Neon";
+			requirement = {
+				branch = main;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -535,6 +563,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3E9C77562E32B04200885574 /* XCRemoteSwiftPackageReference "STTextView" */;
 			productName = STTextView;
+		};
+		3E9C775B2E32BD9100885574 /* STTextViewAnnotationsPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E9C775A2E32BD9100885574 /* XCRemoteSwiftPackageReference "STTextView-Plugin-Annotations" */;
+			productName = STTextViewAnnotationsPlugin;
+		};
+		3E9C775E2E32BDFA00885574 /* STTextView-Plugin-Neon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E9C775D2E32BDFA00885574 /* XCRemoteSwiftPackageReference "STTextView-Plugin-Neon" */;
+			productName = "STTextView-Plugin-Neon";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
