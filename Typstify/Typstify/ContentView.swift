@@ -12,6 +12,7 @@ import SwiftUI
 
 import ProjectNavigator
 import STTextViewSwiftUI
+import STAnnotationsPlugin
 
 typealias Font = UIFont
 typealias Color = UIColor
@@ -33,6 +34,7 @@ extension UUID: @retroactive RawRepresentable {
 
 struct DocumentView: View {
     var projectURL: URL?
+    let annotationDataSource = AnnotationDataSource()
     
     @Binding var source:             String
     @Binding var showSource:         Bool
@@ -45,13 +47,24 @@ struct DocumentView: View {
     @State private var font = Font.monospacedSystemFont(ofSize: 0, weight: .medium)
     @State private var previewDocument: PDFDocument?                = nil
     
-    
     func updatePreview(source: String) {
+        annotationDataSource.textViewAnnotations.removeAll()
+        
         do {
             try previewDocument = renderTypstDocument(from: source)
-        } catch let error as TypstCompilationError {
-            previewDocument = nil
+//        } catch let error as TypstCompilationError {
+//            previewDocument = nil
         } catch {
+            annotationDataSource.textViewAnnotations.insert(
+                STMessageLineAnnotation(
+                    id: UUID().uuidString,
+                    message: "An unknown error prevented the compilation of the Typst Document.",
+                    kind: .error,
+                    location: NSTextLocation
+                ),
+                at: 0
+            )
+            
             previewDocument = nil
         }
     }
@@ -63,7 +76,8 @@ struct DocumentView: View {
                     TextView(
                         text: $editor,
                         selection: $selection,
-                        options: [.wrapLines, .highlightSelectedLine, .showLineNumbers]
+                        options: [.wrapLines, .highlightSelectedLine, .showLineNumbers],
+                        plugins: [STAnnotationsPlugin(dataSource: annotationDataSource)]
                     )
                     .textViewFont(font)
                     .onChange(of: editor, {
